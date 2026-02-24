@@ -1,0 +1,82 @@
+:root {
+    --bordeaux: #630d16;
+    --gold: #c5a059;
+    --light: #f9f7f2;
+    --dark: #2c2c2c;
+}
+
+body {
+    font-family: 'Playfair Display', serif, Georgia; /* Un style serif fait plus "vin" */
+    background-color: var(--light);
+    color: var(--dark);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 5%;
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--bordeaux);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+nav ul { display: flex; list-style: none; }
+nav ul li { margin-left: 2rem; }
+nav ul li a { 
+    text-decoration: none; 
+    color: var(--dark); 
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+nav ul li a.active, nav ul li a:hover { color: var(--bordeaux); }
+
+/* Hero Section */
+.hero { text-align: center; padding: 4rem 1rem; }
+.hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
+
+/* Grid & Cards */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    padding: 2rem 5%;
+}
+
+.wine-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.wine-card:hover { transform: translateY(-5px); }
+.wine-card h3 { color: var(--bordeaux); margin: 10px 0; }
+.wine-card .region { color: var(--gold); font-size: 0.9rem; text-transform: uppercase; }
+
+/* Filtres */
+.filters { text-align: center; margin-bottom: 2rem; }
+.filters button {
+    background: transparent;
+    border: 1px solid var(--bordeaux);
+    color: var(--bordeaux);
+    padding: 8px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filters button:hover { background: var(--bordeaux); color: white; }
