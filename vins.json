@@ -1,0 +1,14 @@
+[
+  { "id": 1, "nom": "Château Margaux", "region": "Bordeaux", "annee": 2015, "type": "Rouge", "description": "Un premier grand cru classé élégant avec des notes de cassis." },
+  { "id": 2, "nom": "Meursault Premier Cru", "region": "Bourgogne", "annee": 2018, "type": "Blanc", "description": "Un blanc onctueux aux arômes de noisette et de beurre frais." },
+  { "id": 3, "nom": "Côte-Rôtie 'La Landonne'", "region": "Vallée du Rhône", "annee": 2017, "type": "Rouge", "description": "Puissant et épicé, une expression pure de la Syrah." },
+  { "id": 4, "nom": "Sancerre 'Monts Damnés'", "region": "Loire", "annee": 2020, "type": "Blanc", "description": "Minéralité tranchante et notes d'agrumes intenses." },
+  { "id": 5, "nom": "Châteauneuf-du-Pape", "region": "Vallée du Rhône", "annee": 2016, "type": "Rouge", "description": "Généreux, sur les fruits noirs et le poivre." },
+  { "id": 6, "nom": "Dom Pérignon Vintage", "region": "Champagne", "annee": 2012, "type": "Effervescent", "description": "Bulle fine, arômes de brioche et de fleurs séchées." },
+  { "id": 7, "nom": "Gevrey-Chambertin", "region": "Bourgogne", "annee": 2019, "type": "Rouge", "description": "Structure ferme et arômes de cerise griotte." },
+  { "id": 8, "nom": "Pessac-Léognan Blanc", "region": "Bordeaux", "annee": 2021, "type": "Blanc", "description": "Assemblage Sauvignon-Semillon, frais et boisé." },
+  { "id": 9, "nom": "Whispering Angel", "region": "Provence", "annee": 2022, "type": "Rosé", "description": "Un rosé pâle, sec et fruité, référence mondiale." },
+  { "id": 10, "nom": "Barolo DOCG", "region": "Piémont (Italie)", "annee": 2015, "type": "Rouge", "description": "Le roi des vins italiens, tanins puissants et rose fanée." },
+  { "id": 11, "nom": "Riesling Grand Cru", "region": "Alsace", "annee": 2019, "type": "Blanc", "description": "Vertical, sec, avec des notes pétrolées caractéristiques." },
+  { "id": 12, "nom": "Hermitage", "region": "Vallée du Rhône", "annee": 2014, "type": "Rouge", "description": "Un vin de garde exceptionnel, profond et complexe." }
+]
