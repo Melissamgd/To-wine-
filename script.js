@@ -23,18 +23,8 @@ function displayWines(filter = 'all') {
     document.querySelectorAll('.details-btn').forEach(btn => {
         btn.addEventListener('click', e => {
             const id = e.currentTarget.dataset.id;
-            const w = wines.find(x => x.id == id);
-            if (w) {
-                // prefer using caracteristique to show full region (with parenthesis) if available
-                let displayRegion = w.region;
-                if (w.caracteristique) {
-                    // remove type portion of caracteristique if present
-                    displayRegion = w.caracteristique.replace(/\s*-\s*"?"?/, '').replace(w.type, '').trim();
-                    // sometimes caracteristique is like "Bordeaux (Médoc) - Rouge"
-                    displayRegion = w.caracteristique.split('-')[0].trim();
-                }
-                alert(`${w.nom} \t${displayRegion} \t${w.type} \t${w.detail || w.description}`);
-            }
+            // open a new tab displaying a dedicated HTML page with wine details
+            window.open(`details.html?id=${id}`, '_blank');
         });
     });
 }

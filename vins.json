@@ -5,6 +5,7 @@
     "region": "Bordeaux",
     "annee": 2015,
     "type": "Rouge",
+    "cepage": "Cabernet Sauvignon",
     "caracteristique": "Bordeaux (Médoc) - Rouge",
     "description": "Un premier grand cru classé élégant avec des notes de cassis.",
     "detail": "L'élégance absolue. Notes de cassis, de violette et de thé noir. Texture soyeuse et finesse légendaire."
@@ -15,6 +16,7 @@
     "region": "Bourgogne",
     "annee": 2018,
     "type": "Blanc",
+    "cepage": "Chardonnay",
     "caracteristique": "Bourgogne (Beaune) - Blanc",
     "description": "Un blanc onctueux aux arômes de noisette et de beurre frais.",
     "detail": "Riche et gourmand. Arômes de noisette, de beurre frais et de fleurs blanches. Une bouche onctueuse et dorée."
@@ -25,6 +27,7 @@
     "region": "Bourgogne",
     "annee": 2012,
     "type": "Rouge",
+    "cepage": "Pinot Noir",
     "caracteristique": "Bourgogne (Nuits) - Rouge",
     "description": "Un vin mythique aux arômes de rose et d'épices.",
     "detail": "Le plus rare. Parfum complexe de rose fanée, d'épices et de sous-bois. Une profondeur et une longueur infinies."
@@ -35,6 +38,7 @@
     "region": "Bordeaux",
     "annee": 2017,
     "type": "Rouge",
+    "cepage": "Merlot",
     "caracteristique": "Bordeaux (Libournais) - Rouge",
     "description": "Dominante Merlot avec des notes de prune et de fruits rouges.",
     "detail": "Dominante Merlot. Notes de fruits rouges mûrs, de prune et de boisé fin. Velouté, puissant mais souple."

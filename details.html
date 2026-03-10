@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du vin</title>
+    <style>
+        body { font-family: "Playfair Display", serif; background: #fdfcfc; color: #333; margin:0; }
+        header { background: #4a0404; padding: 10px 20px; }
+        .tabs { display: flex; gap: 10px; }
+        .tab { color: white; padding: 8px 16px; background: #4a0404; border-radius: 4px 4px 0 0; cursor: default; font-weight: bold; }
+        main { padding: 20px; max-width: 800px; margin: auto; }
+        h1 { color: #4a0404; margin-bottom: 20px; }
+        section { margin-bottom: 20px; }
+        section h2 { color: #720917; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="tabs">
+            <span class="tab">Cépage</span>
+            <span class="tab">Provenance</span>
+            <span class="tab">Mets</span>
+        </nav>
+    </header>
+    <main id="detail-content">
+        <p>Chargement…</p>
+    </main>
+
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        if (!id) {
+            document.getElementById('detail-content').innerHTML = '<p style="color:red;">Aucun identifiant de vin fourni.</p>';
+        } else {
+            fetch('vins.json')
+                .then(r => {
+                    if (!r.ok) throw new Error('Impossible de charger vins.json');
+                    return r.json();
+                })
+                .then(data => {
+                    const vin = data.find(v => v.id == id);
+                    if (!vin) {
+                        document.getElementById('detail-content').innerHTML = '<p style="color:red;">Vin introuvable.</p>';
+                        return;
+                    }
+                    const cepage = vin.cepage || vin.type || 'N/A';
+                    const provenance = vin.caracteristique ? vin.caracteristique.split('-')[0].trim() : (vin.region || 'N/A');
+                    const mets = vin.mets || vin.detail || vin.description || 'N/A';
+                    document.getElementById('detail-content').innerHTML = `
+                        <h1>${vin.nom}</h1>
+                        <section id="cepage"><h2>Cépage</h2><p>${cepage}</p></section>
+                        <section id="provenance"><h2>Provenance</h2><p>${provenance}</p></section>
+                        <section id="mets"><h2>Mets</h2><p>${mets}</p></section>
+                    `;
+                })
+                .catch(err => {
+                    document.getElementById('detail-content').innerHTML = `<p style="color:red;">Erreur : ${err.message}</p>`;
+                });
+        }
+    </script>
+</body>
+</html>
