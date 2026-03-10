@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Écrin Viticole | Catalogue</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">L'Écrin Viticole</div>
+            <ul>
+                <li><a href="index.html" class="active">Catalogue</a></li>
+                <li><a href="articles.html">Connaissances</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Nos Cuvées d'Exception</h1>
+            <p>Explorez les terroirs du Bordelais, de la Bourgogne et d'ailleurs.</p>
+        </section>
+
+        <div class="filters">
+            <button onclick="filterWine('all')">Tous</button>
+            <button onclick="filterWine('Bourgogne')">Bourgogne</button>
+            <button onclick="filterWine('Bordelais')">Bordelais</button>
+        </div>
+
+        <div id="wine-grid" class="grid">
+            </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connaissances | L'Écrin Viticole</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">L'Écrin Viticole</div>
+            <ul>
+                <li><a href="index.html">Catalogue</a></li>
+                <li><a href="articles.html" class="active">Connaissances</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Le Savoir du Vin</h1>
+            <p>Comprendre les cépages, les méthodes de vinification et les secrets du terroir.</p>
+        </section>
+
+        <div id="articles-grid" class="grid">
+            <article class="article-card">
+                <span class="tag">Cépage</span>
+                <h3>Le Pinot Noir</h3>
+                <p>Le cépage roi de la Bourgogne, connu pour sa finesse et ses arômes de cerise griotte...</p>
+                <a href="#" class="read-more">Lire la fiche →</a>
+            </article>
+
+            <article class="article-card">
+                <span class="tag">Terroir</span>
+                <h3>Le Calcaire à Astéries</h3>
+                <p>Spécificité du sol de Saint-Émilion qui donne cette minéralité unique aux vins du bordelais...</p>
+                <a href="#" class="read-more">Lire la fiche →</a>
+            </article>
+        </div>
+
+        <hr class="separator">
+
+        <section class="admin-section">
+            <h2>Ajouter une fiche connaissance</h2>
+            <form id="article-form">
+                <input type="text" id="art-title" placeholder="Titre de l'article (ex: Le Chardonnay)" required>
+                <select id="art-category">
+                    <option value="Cépage">Cépage</option>
+                    <option value="Terroir">Terroir</option>
+                    <option value="Dégustation">Dégustation</option>
+                </select>
+                <textarea id="art-content" placeholder="Description courte..." rows="4" required></textarea>
+                <button type="submit" class="btn-bordeaux">Publier la fiche</button>
+            </form>
+        </section>
+    </main>
+
+    <script src="articles.js"></script>
+</body>
+</html>
