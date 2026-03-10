@@ -3,14 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Écrin Viticole | Catalogue</title>
+    <title>To Wine | L'Excellence Viticole</title>
+    
     <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">L'Écrin Viticole</div>
-            <ul>
+
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="logo">TO WINE</div>
+            <ul class="nav-links">
                 <li><a href="index.html" class="active">Catalogue</a></li>
                 <li><a href="articles.html">Connaissances</a></li>
             </ul>
@@ -18,20 +22,33 @@
     </header>
 
     <main>
-        <section class="hero">
-            <h1>Nos Cuvées d'Exception</h1>
-            <p>Explorez les terroirs du Bordelais, de la Bourgogne et d'ailleurs.</p>
+        <section class="hero-banner">
+            <div class="overlay">
+                <span class="gold-text">Depuis 2024</span>
+                <h1>L'Art de Recevoir</h1>
+                <p>Découvrez notre sélection exclusive des plus grands terroirs français.</p>
+                <div class="line"></div>
+            </div>
         </section>
 
-        <div class="filters">
-            <button onclick="filterWine('all')">Tous</button>
-            <button onclick="filterWine('Bourgogne')">Bourgogne</button>
-            <button onclick="filterWine('Bordelais')">Bordelais</button>
-        </div>
-
-        <div id="wine-grid" class="grid">
+        <div class="container">
+            <div class="filter-bar">
+                <button onclick="filterWine('all')" class="btn-filter">Tous les crus</button>
+                <button onclick="filterWine('Bourgogne')" class="btn-filter">Bourgogne</button>
+                <button onclick="filterWine('Bordelais')" class="btn-filter">Bordelais</button>
             </div>
+
+            <div id="wine-grid" class="wine-grid">
+                </div>
+        </div>
     </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p><strong>TO WINE</strong> - Projet Master 2</p>
+            <p>L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
