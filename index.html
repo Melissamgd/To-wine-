@@ -3,55 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Écrin Viticole | Catalogue</title>
+    <title>To Wine - Votre Cave Digitale</title>
     <link rel="stylesheet" href="style.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header class="main-header">
-        <nav class="navbar">
-            <div class="logo">TO WINE</div>
-            <ul class="nav-links">
-                <li><a href="index.html" class="active">Catalogue</a></li>
-                <li><a href="articles.html">Connaissances</a></li>
+    <header>
+        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 10%; background: #fff; border-bottom: 1px solid #eee;">
+            <div class="logo" style="color: #4a0404; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: bold;">TO WINE</div>
+            <ul style="display: flex; list-style: none; gap: 30px;">
+                <li><a href="index.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #d4af37; padding-bottom: 5px;">Catalogue</a></li>
+                <li><a href="articles.html" style="text-decoration: none; color: #666; transition: 0.3s;">Connaissances</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-    <section class="knowledge-header">
-        <span class="gold-text">L'Encyclopédie</span>
-        <h1>Le Savoir To Wine</h1>
-        
-        <div class="search-container">
-            <div class="search-wrapper">
-                <span class="search-icon">🔍</span>
-                <input type="text" id="articleSearch" placeholder="Rechercher un cépage, une région..." onkeyup="searchArticles()">
+        <section class="hero" style="text-align: center; padding: 80px 20px; background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://images.unsplash.com/photo-1510850478944-71994676572e?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center;">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #4a0404; margin-bottom: 20px;">Votre Sélection Privée</h1>
+            <p style="max-width: 600px; margin: 0 auto; color: #555; line-height: 1.6;">Découvrez notre sélection de cuvées d'exception, triées sur le volet par nos experts pour votre Master 2.</p>
+        </section>
+
+        <div id="wine-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 50px 10%;">
             </div>
-        </div>
-
-        <div class="filter-tags" id="filterContainer">
-            <button class="tag-pill active" onclick="filterByTag('all')">Tous</button>
-            <button class="tag-pill" onclick="filterByTag('Bourgogne')">Bourgogne</button>
-            <button class="tag-pill" onclick="filterByTag('Bordelais')">Bordelais</button>
-            <button class="tag-pill" onclick="filterByTag('Rouge')">Rouge</button>
-            <button class="tag-pill" onclick="filterByTag('Blanc')">Blanc</button>
-        </div>
-    </section>
-
-    <div id="articles-grid" class="articles-grid">
-        </div>
     </main>
 
-    <footer class="footer">
-        <div class="footer-content">
-            <p><strong>TO WINE</strong> - Projet Master 2</p>
-            <p>L'abus d'alcool est dangereux pour la santé, à consommer avec modération.</p>
-        </div>
+    <footer style="background: #4a0404; color: white; padding: 40px; text-align: center;">
+        <p>&copy; 2024 To Wine - Projet Master 2</p>
     </footer>
 
     <script src="script.js"></script>
+
 </body>
 </html>
