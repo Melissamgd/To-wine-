@@ -66,6 +66,7 @@ nav ul li a.active, nav ul li a:hover { color: var(--bordeaux); }
 .wine-card:hover { transform: translateY(-5px); }
 .wine-card h3 { color: var(--bordeaux); margin: 10px 0; }
 .wine-card .region { color: var(--gold); font-size: 0.9rem; text-transform: uppercase; }
+.wine-card .caracteristique { font-style: italic; color: var(--dark); font-size: 0.9rem; margin: 0.5rem 0; }
 
 /* Filtres */
 .filters { text-align: center; margin-bottom: 2rem; }
