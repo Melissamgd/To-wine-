@@ -1,34 +1,31 @@
 const wines = [
-    { name: "Château Margaux", region: "Bordelais", year: "2015", type: "Rouge" },
-    { name: "Meursault", region: "Bourgogne", year: "2018", type: "Blanc" },
-    { name: "Romanée-Conti", region: "Bourgogne", year: "2012", type: "Rouge" },
-    { name: "Saint-Émilion Grand Cru", region: "Bordelais", year: "2017", type: "Rouge" }
+    { name: "Château Margaux", region: "Bordelais", year: "2015", type: "Rouge", price: "650€" },
+    { name: "Meursault 1er Cru", region: "Bourgogne", year: "2018", type: "Blanc", price: "120€" },
+    { name: "Romanée-Conti", region: "Bourgogne", year: "2012", type: "Rouge", price: "Sur devis" },
+    { name: "Saint-Émilion", region: "Bordelais", year: "2017", type: "Rouge", price: "85€" },
+    { name: "Chablis Grand Cru", region: "Bourgogne", year: "2020", type: "Blanc", price: "95€" },
+    { name: "Pomerol", region: "Bordelais", year: "2016", type: "Rouge", price: "140€" }
 ];
 
 function displayWines(filter = 'all') {
     const grid = document.getElementById('wine-grid');
-    grid.innerHTML = ''; // Vide la grille
+    if(!grid) return;
+    
+    grid.innerHTML = '';
 
-    const filteredWines = filter === 'all' 
-        ? wines 
-        : wines.filter(w => w.region === filter);
+    const filtered = filter === 'all' ? wines : wines.filter(w => w.region === filter);
 
-    filteredWines.forEach(wine => {
-        const card = `
+    filtered.forEach(wine => {
+        grid.innerHTML += `
             <div class="wine-card">
-                <p class="region">${wine.region}</p>
+                <span class="gold-text">${wine.region}</span>
                 <h3>${wine.name}</h3>
-                <p>${wine.year} - ${wine.type}</p>
-                <button style="margin-top:10px; background:none; border:none; color:#630d16; cursor:pointer; text-decoration:underline;">Détails</button>
+                <p>${wine.year} — ${wine.type}</p>
+                <p style="color: #4a0404; font-weight: bold; margin-top: 10px;">${wine.price}</p>
+                <button class="btn-filter" style="margin-top: 15px; font-size: 0.7rem;">Voir la fiche</button>
             </div>
         `;
-        grid.innerHTML += card;
     });
 }
 
-function filterWine(region) {
-    displayWines(region);
-}
-
-// Chargement initial
 window.onload = () => displayWines('all');
