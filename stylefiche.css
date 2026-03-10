@@ -1,0 +1,56 @@
+:root {
+    --rouge: #800020;
+    --blanc: #f4e04d;
+    --rose: #ffc0cb;
+    --bulles: #d4af37;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 40px 20px;
+}
+
+h1 { color: var(--rouge); text-transform: uppercase; letter-spacing: 2px; }
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 40px auto;
+}
+
+.vin-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+    border-top: 6px solid #ccc;
+}
+
+.vin-card:hover { transform: translateY(-5px); }
+
+/* Couleurs par type */
+.vin-card.rouge { border-top-color: var(--rouge); }
+.vin-card.blanc { border-top-color: var(--blanc); }
+.vin-card.rose { border-top-color: var(--rose); }
+.vin-card.effervescent { border-top-color: var(--bulles); }
+
+.badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 20px;
+    background: #eee;
+    text-transform: uppercase;
+}
+
+h3 { margin: 15px 0 10px 0; font-size: 1.4rem; }
+.region { color: #666; font-style: italic; font-size: 0.9rem; }
+.desc { color: #444; line-height: 1.4; margin-top: 15px; }
