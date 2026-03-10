@@ -21,24 +21,27 @@
     </header>
 
     <main>
-        <section class="hero-banner">
-            <div class="overlay">
-                <span class="gold-text">Depuis 2024</span>
-                <h1>L'Art de Recevoir</h1>
-                <p>Découvrez notre sélection exclusive des plus grands terroirs français.</p>
-                <div class="line"></div>
+    <section class="knowledge-header">
+        <span class="gold-text">L'Encyclopédie</span>
+        <h1>Le Savoir To Wine</h1>
+        
+        <div class="search-container">
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="articleSearch" placeholder="Rechercher un cépage, une région..." onkeyup="searchArticles()">
             </div>
-        </section>
+        </div>
 
-        <div class="container">
-            <div class="filter-bar">
-                <button onclick="filterWine('all')" class="btn-filter">Tous les crus</button>
-                <button onclick="filterWine('Bourgogne')" class="btn-filter">Bourgogne</button>
-                <button onclick="filterWine('Bordelais')" class="btn-filter">Bordelais</button>
-            </div>
+        <div class="filter-tags" id="filterContainer">
+            <button class="tag-pill active" onclick="filterByTag('all')">Tous</button>
+            <button class="tag-pill" onclick="filterByTag('Bourgogne')">Bourgogne</button>
+            <button class="tag-pill" onclick="filterByTag('Bordelais')">Bordelais</button>
+            <button class="tag-pill" onclick="filterByTag('Rouge')">Rouge</button>
+            <button class="tag-pill" onclick="filterByTag('Blanc')">Blanc</button>
+        </div>
+    </section>
 
-            <div id="wine-grid" class="wine-grid">
-                </div>
+    <div id="articles-grid" class="articles-grid">
         </div>
     </main>
 
