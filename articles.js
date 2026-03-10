@@ -1,50 +1,40 @@
-// Fonction pour créer la carte HTML d'un article
-function createArticleCard(art) {
-    return `
-        <div class="wine-card" style="background: white; border: 1px solid #eee; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
-            <img src="${art.image}" style="width: 100%; height: 180px; object-fit: cover; border-radius: 5px;">
-            <p style="color: #d4af37; font-size: 0.8rem; margin-top: 10px; font-weight: bold;">${art.category.toUpperCase()}</p>
-            <h3 style="color: #4a0404; margin: 10px 0;">${art.title}</h3>
-            <p style="font-size: 0.9rem; color: #555;">${art.description}</p>
-            <div style="margin-top: 15px;">
-                ${art.tags.map(t => `<span style="background: #f4f4f4; padding: 3px 8px; border-radius: 10px; font-size: 0.7rem; margin-right: 5px;">#${t}</span>`).join('')}
-            </div>
-        </div>
-    `;
-}
-
-// Affichage initial
+// Affiche les articles dans la grille
 function displayArticles(list) {
     const grid = document.getElementById('articles-grid');
-    if (!grid) return;
-    grid.innerHTML = list.map(art => createArticleCard(art)).join('');
+    grid.innerHTML = list.map(art => `
+        <div class="wine-card" onclick="openArticle('${art.id}')">
+            <img src="${art.image}" class="card-img">
+            <div class="card-info">
+                <span class="cat">${art.category}</span>
+                <h3>${art.title}</h3>
+                <p>${art.description}</p>
+            </div>
+        </div>
+    `).join('');
 }
 
-// Logique de la recherche
-function searchArticles() {
-    const value = document.getElementById('articleSearch').value.toLowerCase();
-    const result = knowledgeBase.filter(art => 
-        art.title.toLowerCase().includes(value) || 
-        art.description.toLowerCase().includes(value) ||
-        art.tags.some(t => t.toLowerCase().includes(value))
-    );
-    displayArticles(result);
+// Ouvre la fenêtre de l'article
+function openArticle(id) {
+    const art = knowledgeBase.find(item => item.id === id);
+    const modal = document.getElementById('articleModal');
+    const body = document.getElementById('modalBody');
+    
+    body.innerHTML = `
+        <img src="${art.image}" style="width:100%; border-radius:10px;">
+        <h2 style="color:#4a0404; margin-top:20px;">${art.title}</h2>
+        <p style="font-style:italic; color:#d4af37;">${art.category}</p>
+        <div style="line-height:1.6; margin-top:20px;">${art.content}</div>
+    `;
+    modal.style.display = "block";
 }
 
-// Logique des filtres par boutons
-function filterByTag(tagName) {
-    // Style visuel des boutons
-    const btns = document.querySelectorAll('.tag-pill');
-    btns.forEach(b => b.classList.remove('active'));
-    if(event) event.target.classList.add('active');
-
-    if(tagName === 'all') {
-        displayArticles(knowledgeBase);
-    } else {
-        const result = knowledgeBase.filter(art => art.tags.includes(tagName) || art.category === tagName);
-        displayArticles(result);
-    }
+function closeModal() {
+    document.getElementById('articleModal').style.display = "none";
 }
 
-// Lancer l'affichage dès que la page est chargée
+function sendFeedback(type) {
+    alert(type === 'yes' ? "Merci pour votre retour positif !" : "Merci, nous allons améliorer cet article.");
+}
+
+// Lancement
 window.onload = () => displayArticles(knowledgeBase);
