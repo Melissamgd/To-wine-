@@ -197,3 +197,36 @@ body {
     border-color: var(--bordeaux);
     box-shadow: 0 4px 10px rgba(99, 13, 22, 0.2);
 }
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0; top: 0; width: 100%; height: 100%; 
+    background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 5% auto;
+    padding: 30px;
+    width: 60%;
+    border-radius: 15px;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+.feedback-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: center;
+}
+
+.wine-card { cursor: pointer; transition: 0.3s; }
+.wine-card:hover { transform: translateY(-5px); }
