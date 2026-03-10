@@ -41,6 +41,7 @@
                         <h3>${vin.nom}</h3>
                         <p class="region">📍 ${vin.region} (${vin.annee})</p>
                         <p><strong>Type:</strong> ${vin.type}</p>
+                        <p><strong>Caractéristique:</strong> ${vin.caracteristique || ''}</p>
                         <p>${vin.description}</p>
                     `;
                     container.appendChild(card);
