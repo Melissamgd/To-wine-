@@ -3,36 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To wine | Catalogue</title>
+    <title>To Wine - Votre Cave Digitale</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <header>
-        <nav>
-            <div class="logo">L'Écrin Viticole</div>
-            <ul>
-                <li><a href="index.html" class="active">Catalogue</a></li>
-                <li><a href="articles.html">Connaissances</a></li>
+        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 10%; background: #fff; border-bottom: 1px solid #eee;">
+            <div class="logo" style="color: #4a0404; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: bold;">TO WINE</div>
+            <ul style="display: flex; list-style: none; gap: 30px;">
+                <li><a href="index.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #d4af37; padding-bottom: 5px;">Catalogue</a></li>
+                <li><a href="articles.html" style="text-decoration: none; color: #666; transition: 0.3s;">Connaissances</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero">
-            <h1>Nos Cuvées d'Exception</h1>
-            <p>Explorez les terroirs du Bordelais, de la Bourgogne et d'ailleurs.</p>
+        <section class="hero" style="text-align: center; padding: 80px 20px; background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://images.unsplash.com/photo-1510850478944-71994676572e?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center;">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #4a0404; margin-bottom: 20px;">Votre Sélection Privée</h1>
+            <p style="max-width: 600px; margin: 0 auto; color: #555; line-height: 1.6;">Découvrez notre sélection de cuvées d'exception, triées sur le volet par nos experts pour votre Master 2.</p>
         </section>
 
-        <div class="filters">
-            <button onclick="filterWine('all')">Tous</button>
-            <button onclick="filterWine('Bourgogne')">Bourgogne</button>
-            <button onclick="filterWine('Bordelais')">Bordelais</button>
-        </div>
-
-        <div id="wine-grid" class="grid">
+        <div id="wine-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 50px 10%;">
             </div>
     </main>
 
+    <footer style="background: #4a0404; color: white; padding: 40px; text-align: center;">
+        <p>&copy; 2024 To Wine - Projet Master 2</p>
+    </footer>
+
     <script src="script.js"></script>
+
 </body>
 </html>

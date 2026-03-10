@@ -1,83 +1,199 @@
+/* Palette de couleurs */
 :root {
-    --bordeaux: #630d16;
+    --bordeaux: #4a0404;
+    --bordeaux-hover: #720917;
     --gold: #c5a059;
-    --light: #f9f7f2;
-    --dark: #2c2c2c;
+    --cream: #fdfaf5;
+    --text: #2c2c2c;
 }
 
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
 body {
-    font-family: 'Playfair Display', serif, Georgia; /* Un style serif fait plus "vin" */
-    background-color: var(--light);
-    color: var(--dark);
-    margin: 0;
+    background-color: var(--cream);
+    color: var(--text);
+    font-family: 'Playfair Display', serif;
     line-height: 1.6;
 }
 
-/* Navigation */
-nav {
+/* Header & Nav */
+.main-header {
+    background: #fff;
+    border-bottom: 1px solid var(--gold);
+    padding: 1rem 5%;
+}
+
+.navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 5%;
-    background: white;
-    border-bottom: 1px solid #eee;
 }
 
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
     color: var(--bordeaux);
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 4px;
 }
 
-nav ul { display: flex; list-style: none; }
-nav ul li { margin-left: 2rem; }
-nav ul li a { 
-    text-decoration: none; 
-    color: var(--dark); 
-    font-weight: 500;
+.nav-links { display: flex; list-style: none; gap: 2rem; }
+.nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
     transition: 0.3s;
 }
 
-nav ul li a.active, nav ul li a:hover { color: var(--bordeaux); }
+.nav-links a.active, .nav-links a:hover { color: var(--bordeaux); font-weight: bold; }
 
-/* Hero Section */
-.hero { text-align: center; padding: 4rem 1rem; }
-.hero h1 { font-size: 2.5rem; margin-bottom: 10px; }
-
-/* Grid & Cards */
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 2rem;
-    padding: 2rem 5%;
+/* Hero */
+.hero-banner {
+    padding: 100px 20px;
+    text-align: center;
+    background: #fff;
+    margin-bottom: 3rem;
 }
 
+.gold-text { color: var(--gold); text-transform: uppercase; font-size: 0.9rem; letter-spacing: 3px; }
+.hero-banner h1 { font-size: 3.5rem; margin: 10px 0; font-family: 'Cinzel'; }
+.line { width: 50px; height: 2px; background: var(--bordeaux); margin: 20px auto; }
+
+/* Catalogue Grid */
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+.wine-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding-bottom: 50px;
+}
+
+/* Cartes de vin */
 .wine-card {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 4px;
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 30px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s ease;
+    transition: 0.4s;
 }
 
 .wine-card:hover { transform: translateY(-5px); }
 .wine-card h3 { color: var(--bordeaux); margin: 10px 0; }
 .wine-card .region { color: var(--gold); font-size: 0.9rem; text-transform: uppercase; }
-.wine-card .caracteristique { font-style: italic; color: var(--dark); font-size: 0.9rem; margin: 0.5rem 0; }
 
 /* Filtres */
-.filters { text-align: center; margin-bottom: 2rem; }
-.filters button {
-    background: transparent;
-    border: 1px solid var(--bordeaux);
-    color: var(--bordeaux);
-    padding: 8px 20px;
-    margin: 5px;
+.filter-bar { text-align: center; margin-bottom: 40px; }
+.btn-filter {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    margin: 0 5px;
     cursor: pointer;
+    font-family: inherit;
     transition: 0.3s;
 }
 
-.filters button:hover { background: var(--bordeaux); color: white; }
+.btn-filter:hover { background: var(--bordeaux); color: #fff; border-color: var(--bordeaux); }
+
+/* Footer */
+.footer {
+    background: #fff;
+    padding: 50px 20px;
+    text-align: center;
+    border-top: 1px solid #eee;
+    margin-top: 50px;
+}
+/* Effet de bordure dorée fine au survol */
+.wine-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(145deg, #ffffff, #fdfaf5);
+    border: 1px solid rgba(197, 160, 89, 0.2);
+}
+
+.wine-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 4px;
+    background: var(--bordeaux);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+}
+
+.wine-card:hover::before {
+    transform: scaleX(1);
+}
+/* Container de la recherche */
+.search-container {
+    max-width: 700px;
+    margin: 40px auto 20px auto;
+    padding: 0 20px;
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 20px;
+    font-size: 1.2rem;
+    color: var(--gold);
+}
+
+#articleSearch {
+    width: 100%;
+    padding: 18px 20px 18px 55px;
+    border: 1px solid var(--gold);
+    border-radius: 50px;
+    background: white;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: var(--bordeaux);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+#articleSearch:focus {
+    outline: none;
+    box-shadow: 0 4px 20px rgba(99, 13, 22, 0.15);
+    border-color: var(--bordeaux);
+}
+
+/* Boutons de filtres (Pills) */
+.filter-tags {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+
+.tag-pill {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    padding: 10px 22px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    color: var(--text-dark);
+    transition: 0.3s all ease;
+}
+
+.tag-pill:hover {
+    border-color: var(--bordeaux);
+    color: var(--bordeaux);
+}
+
+.tag-pill.active {
+    background: var(--bordeaux);
+    color: white;
+    border-color: var(--bordeaux);
+    box-shadow: 0 4px 10px rgba(99, 13, 22, 0.2);
+}
