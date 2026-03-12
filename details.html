@@ -3,61 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails du vin</title>
+    <title>Ma Cave - Les 12 Vins</title>
     <style>
-        body { font-family: "Playfair Display", serif; background: #fdfcfc; color: #333; margin:0; }
-        header { background: #4a0404; padding: 10px 20px; }
-        .tabs { display: flex; gap: 10px; }
-        .tab { color: white; padding: 8px 16px; background: #4a0404; border-radius: 4px 4px 0 0; cursor: default; font-weight: bold; }
-        main { padding: 20px; max-width: 800px; margin: auto; }
-        h1 { color: #4a0404; margin-bottom: 20px; }
-        section { margin-bottom: 20px; }
-        section h2 { color: #720917; margin-bottom: 8px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #fdfcfc; color: #333; margin: 0; padding: 20px; }
+        h1 { color: #800020; text-align: center; margin-top: 30px; }
+        .intro { text-align: center; color: #666; margin-bottom: 40px; }
+        
+        .container { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 25px; 
+            max-width: 1200px; 
+            margin: auto; 
+        }
+
+        .card { 
+            border: 1px solid #eee; 
+            border-radius: 15px; 
+            padding: 20px; 
+            background: white; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Couleurs des bordures selon le type */
+        .type-rouge { border-top: 10px solid #800020; }
+        .type-blanc { border-top: 10px solid #f4e04d; }
+        .type-rose { border-top: 10px solid #ffc0cb; }
+        .type-liquoreux { border-top: 10px solid #ffae42; } /* Orange/Or pour Yquem */
+
+        .card h3 { margin: 0 0 15px 0; color: #800020; font-size: 1.5em; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
+        .info-row { margin: 6px 0; font-size: 0.9em; line-height: 1.4; }
+        .label { font-weight: bold; color: #444; width: 100px; display: inline-block; }
+        
+        .description { 
+            font-style: italic; 
+            color: #555; 
+            margin: 15px 0; 
+            padding: 10px; 
+            background: #f9f9f9; 
+            border-radius: 8px; 
+            font-size: 0.9em;
+        }
+
+        .price-tag { 
+            text-align: right; 
+            font-weight: bold; 
+            color: #27ae60; 
+            font-size: 1.2em; 
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-    <header>
-        <nav class="tabs">
-            <span class="tab">Cépage</span>
-            <span class="tab">Provenance</span>
-            <span class="tab">Mets</span>
-        </nav>
-    </header>
-    <main id="detail-content">
-        <p>Chargement…</p>
-    </main>
+
+    <h1>🍷 Ma Sélection des 12 Vins</h1>
+    <p class="intro">Découvrez les pépites de notre cave</p>
+
+    <div id="vins-container" class="container">
+        </div>
 
     <script>
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get('id');
-        if (!id) {
-            document.getElementById('detail-content').innerHTML = '<p style="color:red;">Aucun identifiant de vin fourni.</p>';
-        } else {
-            fetch('vins.json')
-                .then(r => {
-                    if (!r.ok) throw new Error('Impossible de charger vins.json');
-                    return r.json();
-                })
-                .then(data => {
-                    const vin = data.find(v => v.id == id);
-                    if (!vin) {
-                        document.getElementById('detail-content').innerHTML = '<p style="color:red;">Vin introuvable.</p>';
-                        return;
-                    }
-                    const cepage = vin.cepage || vin.type || 'N/A';
-                    const provenance = vin.caracteristique ? vin.caracteristique.split('-')[0].trim() : (vin.region || 'N/A');
-                    const mets = vin.mets || vin.detail || vin.description || 'N/A';
-                    document.getElementById('detail-content').innerHTML = `
-                        <h1>${vin.nom}</h1>
-                        <section id="cepage"><h2>Cépage</h2><p>${cepage}</p></section>
-                        <section id="provenance"><h2>Provenance</h2><p>${provenance}</p></section>
-                        <section id="mets"><h2>Mets</h2><p>${mets}</p></section>
+        fetch('vins.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('vins-container');
+                data.forEach(vin => {
+                    const card = document.createElement('div');
+                    
+                    // On gère les types avec parenthèses comme "Blanc (Liquoreux)"
+                    let typeNettoyé = vin.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    if (typeNettoyé.includes("liquoreux")) typeNettoyé = "liquoreux";
+                    if (typeNettoyé.includes("blanc")) typeNettoyé = "blanc";
+                    if (typeNettoyé.includes("rouge")) typeNettoyé = "rouge";
+
+                    card.className = `card type-${typeNettoyé}`;
+                    card.innerHTML = `
+                        <div>
+                            <h3>${vin.nom}</h3>
+                            <div class="info-row"><span class="label">🌍 Pays :</span> ${vin.pays}</div>
+                            <div class="info-row"><span class="label">📍 Région :</span> ${vin.region} (${vin.annee})</div>
+                            <div class="info-row"><span class="label">🍇 Cépage :</span> ${vin.cepage}</div>
+                            <div class="info-row"><span class="label">🍽️ Accords :</span> ${vin.accords_mets}</div>
+                            <p class="description">"${vin.description}"</p>
+                        </div>
+                        <div class="price-tag">${vin.prix_estime} €</div>
                     `;
-                })
-                .catch(err => {
-                    document.getElementById('detail-content').innerHTML = `<p style="color:red;">Erreur : ${err.message}</p>`;
+                    container.appendChild(card);
                 });
-        }
+            })
+            .catch(error => console.error("Erreur :", error));
     </script>
 </body>
 </html>
