@@ -1,28 +1,28 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById('vins-container');
+fetch('vins.json')
+    .then(response => response.json())
+    .then(data => {
+        const container = document.getElementById('vins-container');
+        
+        data.forEach(vin => {
+            const card = document.createElement('div');
+            const typeClass = "type-" + vin.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            
+            card.className = `card ${typeClass}`;
+            card.style.cursor = "pointer";
 
-    fetch('vins.json')
-        .then(response => {
-            if (!response.ok) throw new Error("Erreur de chargement du JSON");
-            return response.json();
-        })
-        .then(vins => {
-            vins.forEach(vin => {
-                // On crée la carte HTML pour chaque vin
-                const card = document.createElement('div');
-                card.className = `vin-card ${vin.type.toLowerCase().replace('é', 'e')}`;
-                
-                card.innerHTML = `
-                    <div class="badge">${vin.type}</div>
-                    <h3>${vin.nom}</h3>
-                    <p class="region">📍 ${vin.region} — ${vin.annee}</p>
-                    <p class="desc">${vin.description}</p>
-                `;
-                
-                container.appendChild(card);
-            });
-        })
-        .catch(error => {
-            container.innerHTML = `<p style="color:red;">Erreur : ${error.message}</p>`;
+            // C'est ici que la magie opère pour la redirection individuelle
+            card.onclick = () => {
+                window.location.href = `details.html?id=${vin.id}`;
+            };
+
+            card.innerHTML = `
+                <h3>${vin.nom}</h3>
+                <p class="region">📍 ${vin.region} (${vin.annee})</p>
+                <p><strong>Cépage:</strong> ${vin.cepage}</p>
+                <p><strong>Prix:</strong> ${vin.prix_estime}€</p>
+                <span class="view-details">Voir la fiche →</span>
+            `;
+            container.appendChild(card);
         });
-});
+    })
+    .catch(error => console.error("Erreur de chargement :", error));

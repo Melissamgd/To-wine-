@@ -3,98 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma Cave - Les 12 Vins</title>
+    <title>Fiche Détaillée - Vin</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #fdfcfc; color: #333; margin: 0; padding: 20px; }
-        h1 { color: #800020; text-align: center; margin-top: 30px; }
-        .intro { text-align: center; color: #666; margin-bottom: 40px; }
+        body { font-family: 'Segoe UI', sans-serif; background: #fdfcfc; padding: 20px; color: #333; }
         
-        .container { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 25px; 
-            max-width: 1200px; 
-            margin: auto; 
-        }
-
-        .card { 
-            border: 1px solid #eee; 
-            border-radius: 15px; 
-            padding: 20px; 
+        .fiche-container { 
+            max-width: 650px; 
+            margin: 40px auto; 
             background: white; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08); 
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            text-align: left;
+            transition: 0.3s;
         }
 
-        /* Couleurs des bordures selon le type */
-        .type-rouge { border-top: 10px solid #800020; }
-        .type-blanc { border-top: 10px solid #f4e04d; }
-        .type-rose { border-top: 10px solid #ffc0cb; }
-        .type-liquoreux { border-top: 10px solid #ffae42; } /* Orange/Or pour Yquem */
+        /* Styles des bordures par type */
+        .type-rouge { border-top: 15px solid #800020; }
+        .type-blanc { border-top: 15px solid #f4e04d; }
+        .type-rose { border-top: 15px solid #ffc0cb; }
+        .type-liquoreux { border-top: 15px solid #ffae42; }
 
-        .card h3 { margin: 0 0 15px 0; color: #800020; font-size: 1.5em; border-bottom: 1px solid #f0f0f0; padding-bottom: 10px; }
-        .info-row { margin: 6px 0; font-size: 0.9em; line-height: 1.4; }
-        .label { font-weight: bold; color: #444; width: 100px; display: inline-block; }
+        h1 { color: #800020; margin-top: 0; font-size: 2.2em; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; }
+        
+        .info { margin: 12px 0; font-size: 1.1em; display: flex; }
+        .label { font-weight: bold; color: #777; width: 160px; flex-shrink: 0; }
         
         .description { 
+            margin-top: 25px; 
             font-style: italic; 
             color: #555; 
-            margin: 15px 0; 
-            padding: 10px; 
             background: #f9f9f9; 
-            border-radius: 8px; 
-            font-size: 0.9em;
+            padding: 20px; 
+            border-radius: 12px; 
+            line-height: 1.6;
         }
 
-        .price-tag { 
-            text-align: right; 
+        .back-nav { text-align: center; margin-top: 30px; }
+        .back-btn { 
+            text-decoration: none; 
+            color: #800020; 
             font-weight: bold; 
-            color: #27ae60; 
-            font-size: 1.2em; 
-            margin-top: 10px;
+            border: 2px solid #800020; 
+            padding: 10px 20px; 
+            border-radius: 50px;
+            transition: 0.3s;
         }
+        .back-btn:hover { background: #800020; color: white; }
     </style>
 </head>
 <body>
 
-    <h1>🍷 Ma Sélection des 12 Vins</h1>
-    <p class="intro">Découvrez les pépites de notre cave</p>
+    <div id="vin-details" class="fiche-container">
+        <p style="text-align:center;">Recherche du vin dans la cave...</p>
+    </div>
 
-    <div id="vins-container" class="container">
-        </div>
+    <div class="back-nav">
+        <a href="articles.html" class="back-btn">← Retour au Catalogue</a>
+    </div>
 
     <script>
+        // 1. Récupérer l'ID dans l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const vinId = urlParams.get('id');
+
         fetch('vins.json')
             .then(response => response.json())
             .then(data => {
-                const container = document.getElementById('vins-container');
-                data.forEach(vin => {
-                    const card = document.createElement('div');
-                    
-                    // On gère les types avec parenthèses comme "Blanc (Liquoreux)"
-                    let typeNettoyé = vin.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                    if (typeNettoyé.includes("liquoreux")) typeNettoyé = "liquoreux";
-                    if (typeNettoyé.includes("blanc")) typeNettoyé = "blanc";
-                    if (typeNettoyé.includes("rouge")) typeNettoyé = "rouge";
+                const container = document.getElementById('vin-details');
 
-                    card.className = `card type-${typeNettoyé}`;
-                    card.innerHTML = `
-                        <div>
-                            <h3>${vin.nom}</h3>
-                            <div class="info-row"><span class="label">🌍 Pays :</span> ${vin.pays}</div>
-                            <div class="info-row"><span class="label">📍 Région :</span> ${vin.region} (${vin.annee})</div>
-                            <div class="info-row"><span class="label">🍇 Cépage :</span> ${vin.cepage}</div>
-                            <div class="info-row"><span class="label">🍽️ Accords :</span> ${vin.accords_mets}</div>
-                            <p class="description">"${vin.description}"</p>
-                        </div>
-                        <div class="price-tag">${vin.prix_estime} €</div>
+                // 2. Trouver le vin spécifique (comparaison avec == car l'ID de l'URL est un texte)
+                const vin = data.find(item => item.id == vinId);
+
+                if (vin) {
+                    // Nettoyage du type pour la couleur de bordure
+                    let typeNettoye = vin.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    if (typeNettoye.includes("liquoreux")) typeNettoye = "liquoreux";
+
+                    container.className = `fiche-container type-${typeNettoye}`;
+                    
+                    container.innerHTML = `
+                        <h1>${vin.nom}</h1>
+                        <div class="info"><span class="label">🌍 Pays :</span> <span>${vin.pays}</span></div>
+                        <div class="info"><span class="label">📍 Région :</span> <span>${vin.region} (${vin.annee})</span></div>
+                        <div class="info"><span class="label">🍇 Cépage :</span> <span>${vin.cepage}</span></div>
+                        <div class="info"><span class="label">🎨 Type :</span> <span>${vin.type}</span></div>
+                        <div class="info"><span class="label">🍽️ Accords :</span> <span>${vin.accords_mets}</span></div>
+                        <div class="info"><span class="label">💰 Prix Estimé :</span> <span>${vin.prix_estime} €</span></div>
+                        <div class="description">"${vin.description}"</div>
                     `;
-                    container.appendChild(card);
-                });
+                } else {
+                    container.innerHTML = "<h2 style='text-align:center;'>Désolé, ce vin n'existe pas dans notre cave.</h2>";
+                }
             })
-            .catch(error => console.error("Erreur :", error));
+            .catch(error => {
+                console.error("Erreur :", error);
+                document.getElementById('vin-details').innerHTML = "Erreur lors du chargement des données.";
+            });
     </script>
 </body>
 </html>
