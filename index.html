@@ -3,37 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Wine - Votre Cave Digitale</title>
+    <title>To Wine - Accueil</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 10%; background: #fff; border-bottom: 1px solid #eee;">
-            <div class="logo" style="color: #4a0404; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: bold;">TO WINE</div>
-            <ul style="display: flex; list-style: none; gap: 30px; margin: 0; padding: 0;">
-                <li><a href="index.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #d4af37; padding-bottom: 5px;">Catalogue</a></li>
+        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000;">
+            <div class="logo" style="color: #4a0404; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">TO WINE</div>
+            <ul style="display: flex; list-style: none; gap: 25px; margin: 0; padding: 0;">
+                <li><a href="index.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #c5a059; padding-bottom: 5px;">Accueil</a></li>
+                <li><a href="catalogue.html" style="text-decoration: none; color: #666; transition: 0.3s;">Catalogue</a></li>
                 <li><a href="articles.html" style="text-decoration: none; color: #666; transition: 0.3s;">Connaissances</a></li>
+                <li><a href="ateliers.html" style="text-decoration: none; color: #666; transition: 0.3s;">Nos Ateliers</a></li>
+                <li><a href="contact.html" style="text-decoration: none; color: #666; transition: 0.3s;">Contactez-nous</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero" style="text-align: center; padding: 100px 20px; background: #fdfbfb;">
-            <h1 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #4a0404; margin-bottom: 20px;">Votre Sélection Privée</h1>
-            <p style="max-width: 600px; margin: 0 auto; color: #555; font-size: 1.1rem;">Explorez notre expertise œnologique et trouvez la bouteille parfaite.</p>
-        </section>
-
-        <div id="wine-grid" class="wine-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; padding: 50px 10%;">
+        <section class="accueil-section" style="text-align: center; padding: 120px 20px; background: #fdfbfb;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <span style="color: #c5a059; text-transform: uppercase; letter-spacing: 3px; font-weight: 600;">L'excellence du terroir</span>
+                <h1 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #4a0404; margin: 20px 0;">To Wine</h1>
+                <p style="color: #555; font-size: 1.2rem; margin-bottom: 40px;">Votre cave digitale privilégiée pour découvrir, apprendre et déguster les plus grands crus.</p>
+                
+                <div style="display: flex; gap: 20px; justify-content: center;">
+                    <a href="catalogue.html" style="background: #4a0404; color: white; padding: 15px 35px; text-decoration: none; border-radius: 5px; font-weight: 600; transition: 0.3s;">Voir le Catalogue</a>
+                    <a href="contact.html" style="border: 1px solid #4a0404; color: #4a0404; padding: 15px 35px; text-decoration: none; border-radius: 5px; font-weight: 600; transition: 0.3s;">Nous contacter</a>
+                </div>
             </div>
+        </section>
     </main>
 
     <footer style="background: #4a0404; color: white; padding: 40px; text-align: center; margin-top: 50px;">
-        <p>&copy; 2024 To Wine - Expertise & Passion</p>
+        <p>&copy; 2026 To Wine - Expertise & Passion</p>
     </footer>
-
-    <script src="script.js"></script>
 
 </body>
 </html>
