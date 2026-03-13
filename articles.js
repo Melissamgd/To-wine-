@@ -1,4 +1,4 @@
-// 1. Affichage des cartes d'articles
+// 1. Affichage des cartes d'articles dans le carrousel
 function displayArticles(data) {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
@@ -15,27 +15,27 @@ function displayArticles(data) {
     `).join('');
 }
 
-// 2. Fonction de défilement automatique avec arrêt propre
+// 2. Fonction de défilement automatique avec arrêt définitif à la fin
 function startAutoScroll() {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
 
-    // On réinitialise le scroll à gauche au démarrage
+    // On s'assure de partir du début
     grid.scrollLeft = 0;
 
     const scrollInterval = setInterval(() => {
-        const startPos = grid.scrollLeft;
+        const positionAvantMouvement = grid.scrollLeft;
         
-        // On avance d'un pixel
+        // On avance de 1 pixel
         grid.scrollLeft += 1;
 
-        // VERIFICATION : Si la position ne change plus, on arrête le script
-        // Cela arrive quand on a atteint le bout du carrousel
-        if (grid.scrollLeft === startPos && startPos > 0) {
-            clearInterval(scrollInterval);
-            console.log("Fin du carrousel atteinte.");
+        // TEST : Si après avoir ajouté +1, la position est la même qu'avant,
+        // c'est que le navigateur bloque car on est au bout du carrousel.
+        if (grid.scrollLeft === positionAvantMouvement && positionAvantMouvement > 0) {
+            clearInterval(scrollInterval); // On "tue" le défilement ici
+            console.log("Fin du contenu atteinte. Arrêt du carrousel.");
         }
-    }, 30); // 30ms pour une fluidité optimale
+    }, 30); // Vitesse fluide
 }
 
 // 3. Ouverture de la fenêtre d'infos (Modal)
@@ -82,11 +82,10 @@ window.onclick = function(event) {
 };
 
 // 6. Lancement au chargement de la page
-// ATTENTION : On utilise "addEventListener" pour être sûr de ne pas écraser d'autres scripts
 window.addEventListener('load', () => {
     if (typeof knowledgeBase !== 'undefined') {
         displayArticles(knowledgeBase);
-        // On laisse un petit délai de 500ms pour être sûr que les images sont chargées
+        // Petit délai de sécurité pour que le navigateur calcule bien la largeur des images
         setTimeout(startAutoScroll, 500);
     }
 });
