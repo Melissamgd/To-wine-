@@ -21,7 +21,7 @@
     "type": "Rouge",
     "accords_mets": "Gibier à plumes, plats aux morilles",
     "description": "L'élégance absolue. Arômes complexes de rose fanée et de sous-bois.",
-    "prix_estime": 15000
+    "prix_estime": 3500
   },
   {
     "id": 3,
@@ -33,7 +33,7 @@
     "type": "Blanc (Liquoreux)",
     "accords_mets": "Foie gras, desserts aux abricots, roquefort",
     "description": "Le plus grand vin liquoreux au monde. Notes de miel, d'orange confite et de safran.",
-    "prix_estime": 4500
+    "prix_estime": 2500
   },
   {
     "id": 4,
