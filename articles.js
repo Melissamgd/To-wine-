@@ -1,4 +1,4 @@
-// 1. Affichage des cartes d'articles dans le carrousel
+// 1. Affichage des cartes d'articles
 function displayArticles(data) {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
@@ -15,22 +15,23 @@ function displayArticles(data) {
     `).join('');
 }
 
-// 2. Défilement automatique avec retour au début immédiat
+// 2. Défilement automatique avec arrêt final
 function startAutoScroll() {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
     
-    setInterval(() => {
-        // On avance de 1 pixel
+    // On utilise setInterval mais on stocke son ID pour pouvoir l'arrêter
+    const scrollInterval = setInterval(() => {
+        const prevScrollPos = grid.scrollLeft;
+        
+        // On avance d'un pixel
         grid.scrollLeft += 1;
 
-        // On calcule la fin possible du défilement
-        // scrollWidth (largeur totale) - clientWidth (largeur visible à l'écran)
-        const endOfScroll = grid.scrollWidth - grid.clientWidth;
-
-        // Si on est arrivé au bout (ou presque, avec une marge de 2px)
-        if (grid.scrollLeft >= endOfScroll - 2) {
-            grid.scrollLeft = 0; // On force le retour à la position 0 (tout à gauche)
+        // VERIFICATION : Si la position n'a pas bougé malgré le +1, 
+        // c'est qu'on a touché le mur de droite.
+        if (grid.scrollLeft === prevScrollPos) {
+            clearInterval(scrollInterval); // On stoppe définitivement le défilement
+            console.log("Fin du carrousel atteinte : arrêt du défilement.");
         }
     }, 30); 
 }
