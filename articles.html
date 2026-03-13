@@ -5,28 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connaissances - To Wine</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header class="main-header">
-        <nav class="navbar">
-            <div class="logo">TO WINE</div>
-            <ul class="nav-links">
-                <li><a href="index.html">Catalogue</a></li>
-                <li><a href="articles.html" class="active">Connaissances</a></li>
+    <header>
+        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee;">
+            <div class="logo" style="color: #4a0404; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">TO WINE</div>
+            <ul style="display: flex; list-style: none; gap: 25px;">
+                <li><a href="index.html" style="text-decoration: none; color: #666;">Accueil</a></li>
+                <li><a href="fiche.html" style="text-decoration: none; color: #666;">Catalogue</a></li>
+                <li><a href="articles.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #c5a059;">Connaissances</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="hero-banner">
-            <div class="gold-text">Expertise & Secrets</div>
-            <h1>Le Savoir To Wine</h1>
-            <div class="line"></div>
-            <p>Cliquez sur un article pour découvrir nos guides complets.</p>
-        </section>
-
+        <h2 style="text-align: center; margin-top: 40px; font-family: 'Playfair Display'; color: #4a0404;">Nos Guides Oenologiques</h2>
         <div id="articles-grid" class="articles-grid">
             </div>
     </main>
@@ -34,14 +28,9 @@
     <div id="articleModal" class="modal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeArticle()">&times;</span>
-            <div id="modal-body">
-                </div>
+            <div id="modal-body"></div>
         </div>
     </div>
-
-    <footer class="footer">
-        <p>© 2026 TO WINE - L'art de la dégustation</p>
-    </footer>
 
     <script src="articles_data.js"></script>
     <script src="articles.js"></script>

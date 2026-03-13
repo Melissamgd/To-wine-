@@ -3,52 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma Cave - Les 12 Vins</title>
-    <style>
-        /* Un petit style rapide pour que ce soit joli immédiatement */
-        body { font-family: sans-serif; background: #fdfcfc; color: #333; text-align: center; }
-        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; max-width: 1100px; margin: auto; }
-        .card { border: 1px solid #ddd; border-radius: 10px; padding: 15px; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: 0.3s; }
-        .card:hover { transform: scale(1.03); }
-        .type-rouge { border-top: 5px solid #800020; }
-        .type-blanc { border-top: 5px solid #f4e04d; }
-        .type-rose { border-top: 5px solid #ffc0cb; }
-        h1 { color: #800020; margin-top: 30px; }
-        .region { font-style: italic; color: #666; }
-    </style>
+    <title>Catalogue - To Wine</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylefiche.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <h1>🍷 Ma Sélection des 12 Vins</h1>
-    <p>Données chargées depuis vins.json</p>
+    <header>
+        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000;">
+            <div class="logo" style="color: #4a0404; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">TO WINE</div>
+            <ul style="display: flex; list-style: none; gap: 25px; margin: 0; padding: 0;">
+                <li><a href="index.html" style="text-decoration: none; color: #666;">Accueil</a></li>
+                <li><a href="fiche.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #c5a059; padding-bottom: 5px;">Catalogue</a></li>
+                <li><a href="articles.html" style="text-decoration: none; color: #666;">Connaissances</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div id="vins-container" class="container">
-        </div>
+    <main>
+        <section class="catalogue-container" style="padding: 50px 5%;">
+            <h1 style="text-align: center; font-family: 'Playfair Display', serif; color: #4a0404; margin-bottom: 40px;">Notre Sélection de Vins</h1>
+            
+            <div id="wine-grid" class="wine-grid">
+                </div>
+        </section>
+    </main>
 
-    <script>
-        // Ce script va lire ton fichier JSON
-        fetch('vins.json')
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('vins-container');
-                data.forEach(vin => {
-                    const card = document.createElement('div');
-                    // On adapte la couleur selon le type (Rouge, Blanc...)
-                    const typeClass = "type-" + vin.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                    
-                    card.className = `card ${typeClass}`;
-                    card.innerHTML = `
-                        <h3>${vin.nom}</h3>
-                        <p class="region">📍 ${vin.region} (${vin.annee})</p>
-                        <p><strong>Type:</strong> ${vin.type}</p>
-                        <p><strong>Caractéristique:</strong> ${vin.caracteristique || ''}</p>
-                        <p>${vin.description}</p>
-                    `;
-                    container.appendChild(card);
-                });
-            })
-            .catch(error => console.error("Erreur de chargement :", error));
-    </script>
+    <footer style="background: #4a0404; color: white; padding: 40px; text-align: center;">
+        <p>&copy; 2026 To Wine - Expertise & Passion</p>
+    </footer>
+
+    <script src="script.js"></script>
 
 </body>
 </html>
