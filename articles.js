@@ -15,25 +15,22 @@ function displayArticles(data) {
     `).join('');
 }
 
-// 2. Défilement automatique fluide avec détection de blocage
+// 2. Défilement automatique avec retour au début immédiat
 function startAutoScroll() {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
     
-    let lastScrollLeft = -1;
-
     setInterval(() => {
-        // Sauvegarde de la position avant le mouvement
-        lastScrollLeft = grid.scrollLeft;
-        
-        // On avance d'un pixel
+        // On avance de 1 pixel
         grid.scrollLeft += 1;
 
-        // SI la position n'a pas bougé (on est au bout) OU si on touche la limite mathématique
-        const maxScroll = grid.scrollWidth - grid.clientWidth;
-        
-        if (grid.scrollLeft === lastScrollLeft || grid.scrollLeft >= maxScroll - 1) {
-            grid.scrollLeft = 0; // Retour immédiat au début
+        // On calcule la fin possible du défilement
+        // scrollWidth (largeur totale) - clientWidth (largeur visible à l'écran)
+        const endOfScroll = grid.scrollWidth - grid.clientWidth;
+
+        // Si on est arrivé au bout (ou presque, avec une marge de 2px)
+        if (grid.scrollLeft >= endOfScroll - 2) {
+            grid.scrollLeft = 0; // On force le retour à la position 0 (tout à gauche)
         }
     }, 30); 
 }
