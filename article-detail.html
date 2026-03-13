@@ -2,35 +2,37 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Lecture Article - To Wine</title>
+    <title>Détail Article - To Wine</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        #full-article { max-width: 800px; margin: 50px auto; padding: 20px; background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .article-img { width: 100%; height: 350px; object-fit: cover; border-radius: 10px; }
+        .back-link { display: block; margin-bottom: 20px; color: #4a0404; text-decoration: none; font-weight: bold; }
+    </style>
 </head>
-<body style="background: #fdfbfb;">
-    <nav style="padding: 20px 10%; background: white; border-bottom: 1px solid #eee;">
-        <a href="articles.html" style="color: #4a0404; text-decoration: none;">← Retour aux articles</a>
-    </nav>
-
-    <main id="full-article" style="max-width: 800px; margin: 50px auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.05);">
-        </main>
+<body>
+    <div id="full-article">
+        <a href="articles.html" class="back-link">← Retour</a>
+        <div id="content-area">Chargement...</div>
+    </div>
 
     <script src="articles_data.js"></script>
     <script>
-        // Ce petit script lit l'ID dans l'URL et affiche le bon contenu
-        window.onload = () => {
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
-            const art = knowledgeBase.find(a => a.id === id);
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        const art = knowledgeBase.find(item => item.id === id);
+        const area = document.getElementById('content-area');
 
-            if (art) {
-                document.getElementById('full-article').innerHTML = `
-                    <img src="${art.image}" style="width:100%; border-radius:10px; margin-bottom:30px;">
-                    <h1 style="color: #4a0404; font-family: 'Playfair Display', serif;">${art.title}</h1>
-                    <p style="color: #d4af37; font-weight: bold;">${art.category}</p>
-                    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #eee;">
-                    <div style="line-height: 1.8; font-size: 1.1rem;">${art.content}</div>
-                `;
-            }
-        };
+        if (art) {
+            area.innerHTML = `
+                <img src="${art.image}" class="article-img">
+                <h1 style="color:#4a0404">${art.title}</h1>
+                <p style="color:#d4af37"><b>${art.category}</b></p>
+                <div>${art.content}</div>
+            `;
+        } else {
+            area.innerHTML = "<h1>Article introuvable</h1>";
+        }
     </script>
 </body>
 </html>
