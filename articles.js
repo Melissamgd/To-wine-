@@ -4,7 +4,7 @@ function displayArticles(data) {
     if (!grid) return;
     
     grid.innerHTML = data.map(art => `
-        <div class="article-card" onclick="openArticle('${art.id}')" style="cursor:pointer;">
+        <div class="article-card" onclick="openArticle('${art.id}')" style="cursor:pointer; flex: 0 0 auto;">
             <img src="${art.image}" class="card-img" alt="${art.title}">
             <div class="card-content">
                 <span class="card-category" style="color:#c5a059; font-size:0.8rem; font-weight:bold;">${art.category}</span>
@@ -15,25 +15,27 @@ function displayArticles(data) {
     `).join('');
 }
 
-// 2. Défilement automatique avec arrêt final
+// 2. Fonction de défilement automatique avec arrêt propre
 function startAutoScroll() {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
-    
-    // On utilise setInterval mais on stocke son ID pour pouvoir l'arrêter
+
+    // On réinitialise le scroll à gauche au démarrage
+    grid.scrollLeft = 0;
+
     const scrollInterval = setInterval(() => {
-        const prevScrollPos = grid.scrollLeft;
+        const startPos = grid.scrollLeft;
         
         // On avance d'un pixel
         grid.scrollLeft += 1;
 
-        // VERIFICATION : Si la position n'a pas bougé malgré le +1, 
-        // c'est qu'on a touché le mur de droite.
-        if (grid.scrollLeft === prevScrollPos) {
-            clearInterval(scrollInterval); // On stoppe définitivement le défilement
-            console.log("Fin du carrousel atteinte : arrêt du défilement.");
+        // VERIFICATION : Si la position ne change plus, on arrête le script
+        // Cela arrive quand on a atteint le bout du carrousel
+        if (grid.scrollLeft === startPos && startPos > 0) {
+            clearInterval(scrollInterval);
+            console.log("Fin du carrousel atteinte.");
         }
-    }, 30); 
+    }, 30); // 30ms pour une fluidité optimale
 }
 
 // 3. Ouverture de la fenêtre d'infos (Modal)
@@ -80,9 +82,11 @@ window.onclick = function(event) {
 };
 
 // 6. Lancement au chargement de la page
-window.onload = () => {
+// ATTENTION : On utilise "addEventListener" pour être sûr de ne pas écraser d'autres scripts
+window.addEventListener('load', () => {
     if (typeof knowledgeBase !== 'undefined') {
         displayArticles(knowledgeBase);
-        startAutoScroll();
+        // On laisse un petit délai de 500ms pour être sûr que les images sont chargées
+        setTimeout(startAutoScroll, 500);
     }
-};
+});
