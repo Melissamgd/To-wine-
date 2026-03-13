@@ -15,22 +15,27 @@ function displayArticles(data) {
     `).join('');
 }
 
-// 2. Défilement automatique fluide (Correction du tremblement)
+// 2. Défilement automatique fluide avec détection de blocage
 function startAutoScroll() {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
     
+    let lastScrollLeft = -1;
+
     setInterval(() => {
+        // Sauvegarde de la position avant le mouvement
+        lastScrollLeft = grid.scrollLeft;
+        
         // On avance d'un pixel
         grid.scrollLeft += 1;
 
-        // Calcul de la fin du scroll avec une marge de sécurité de 5px pour éviter le tremblement
+        // SI la position n'a pas bougé (on est au bout) OU si on touche la limite mathématique
         const maxScroll = grid.scrollWidth - grid.clientWidth;
         
-        if (grid.scrollLeft >= maxScroll - 5) {
-            grid.scrollLeft = 0; // On revient au début proprement
+        if (grid.scrollLeft === lastScrollLeft || grid.scrollLeft >= maxScroll - 1) {
+            grid.scrollLeft = 0; // Retour immédiat au début
         }
-    }, 30); // Vitesse de 30ms pour un mouvement fluide
+    }, 30); 
 }
 
 // 3. Ouverture de la fenêtre d'infos (Modal)
@@ -43,7 +48,6 @@ function openArticle(id) {
     const modal = document.getElementById('articleModal');
     const body = document.getElementById('modal-body');
 
-    // Contenu de la fenêtre avec support du scroll (swipe) vers le bas
     body.innerHTML = `
         <img src="${article.image}" style="width:100%; border-radius:10px; margin-bottom:20px;">
         <h2 style="font-family: 'Cinzel', serif; color:#4a0404; margin-bottom:10px;">${article.title}</h2>
@@ -57,7 +61,7 @@ function openArticle(id) {
     `;
 
     modal.style.display = "block";
-    document.body.style.overflow = "hidden"; // Empêche le scroll de la page principale
+    document.body.style.overflow = "hidden";
 }
 
 // 4. Fermeture de la fenêtre
@@ -65,7 +69,7 @@ function closeArticle() {
     const modal = document.getElementById('articleModal');
     if (modal) {
         modal.style.display = "none";
-        document.body.style.overflow = "auto"; // Réactive le scroll de la page principale
+        document.body.style.overflow = "auto";
     }
 }
 
