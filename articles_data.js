@@ -74,3 +74,10 @@ const knowledgeBase = [
 
             <h2 style="color:#4a0404;">👄 L'Examen Gustatif</h2>
             <p><b>Tanins :</b> Apportent la structure
+            <p><b>Tanins :</b> Apportent la structure et la sensation de rugosité au vin rouge.</p>
+            <p><b>Longueur (PAI) :</b> La persistance des arômes, calculée en <b>caudalies</b> (1 seconde = 1 caudalie).</p>
+            <p><b>Équilibre :</b> L'harmonie entre l'acidité, les tanins et l'alcool.</p>
+        `,
+        image: "https://storage.googleapis.com/glide-prod.appspot.com/uploads-v2/hlWSnDO6tfRMg2O96kOH-template-builder/pub/yDZa07spgzNNLPlAtLIu.jpg"
+    }
+];
