@@ -1,8 +1,6 @@
-// 1. Fonction pour afficher les articles
 function displayArticles(data) {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
-    
     grid.innerHTML = data.map(art => `
         <div class="article-card" onclick="goToArticle('${art.id}')" style="cursor:pointer;">
             <img src="${art.image}" class="card-img" alt="${art.title}">
@@ -15,13 +13,12 @@ function displayArticles(data) {
     `).join('');
 }
 
-// 2. La fonction de clic (C'est elle qui crée l'URL avec l'ID)
+// CETTE FONCTION EST LA CLÉ
 function goToArticle(id) {
-    console.log("Navigation vers :", id);
+    // On ajoute bien .html et l'ID
     window.location.href = "article-detail.html?id=" + id;
 }
 
-// 3. Fonction auto-défilement
 function startCarousel() {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
@@ -33,12 +30,9 @@ function startCarousel() {
     }, 30);
 }
 
-// 4. Lancement au chargement de la page
 window.onload = () => {
     if (typeof knowledgeBase !== 'undefined') {
         displayArticles(knowledgeBase);
         startCarousel();
-    } else {
-        console.error("La base de données knowledgeBase est introuvable.");
     }
 };
