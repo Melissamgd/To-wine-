@@ -1,10 +1,13 @@
-// 1. Affichage des cartes d'articles dans le carrousel
+// 1. Affichage des articles avec DUPLICATION pour l'effet infini
 function displayArticles(data) {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
     
-    grid.innerHTML = data.map(art => `
-        <div class="article-card" onclick="openArticle('${art.id}')" style="cursor:pointer; flex: 0 0 auto;">
+    // On double les données pour que la fin du carrousel ressemble au début
+    const doubledData = [...data, ...data];
+    
+    grid.innerHTML = doubledData.map(art => `
+        <div class="article-card" onclick="openArticle('${art.id}')" style="cursor:pointer; flex: 0 0 auto; width: 300px; margin-right: 20px;">
             <img src="${art.image}" class="card-img" alt="${art.title}">
             <div class="card-content">
                 <span class="card-category" style="color:#c5a059; font-size:0.8rem; font-weight:bold;">${art.category}</span>
@@ -15,33 +18,27 @@ function displayArticles(data) {
     `).join('');
 }
 
-// 2. Fonction de défilement automatique avec arrêt définitif à la fin
+// 2. Défilement automatique infini et fluide
 function startAutoScroll() {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
 
-    // On s'assure de partir du début
-    grid.scrollLeft = 0;
+    const scrollSpeed = 1; // 1 pixel par pas
+    
+    setInterval(() => {
+        grid.scrollLeft += scrollSpeed;
 
-    const scrollInterval = setInterval(() => {
-        const positionAvantMouvement = grid.scrollLeft;
-        
-        // On avance de 1 pixel
-        grid.scrollLeft += 1;
-
-        // TEST : Si après avoir ajouté +1, la position est la même qu'avant,
-        // c'est que le navigateur bloque car on est au bout du carrousel.
-        if (grid.scrollLeft === positionAvantMouvement && positionAvantMouvement > 0) {
-            clearInterval(scrollInterval); // On "tue" le défilement ici
-            console.log("Fin du contenu atteinte. Arrêt du carrousel.");
+        // Si on a dépassé la moitié du contenu (la fin du premier groupe d'articles)
+        // on se téléporte au début sans que l'utilisateur ne s'en aperçoive
+        if (grid.scrollLeft >= grid.scrollWidth / 2) {
+            grid.scrollLeft = 0;
         }
-    }, 30); // Vitesse fluide
+    }, 30); 
 }
 
-// 3. Ouverture de la fenêtre d'infos (Modal)
+// 3. Ouverture de la Modal
 function openArticle(id) {
     if (typeof knowledgeBase === 'undefined') return;
-
     const article = knowledgeBase.find(a => a.id === id);
     if (!article) return;
 
@@ -50,21 +47,17 @@ function openArticle(id) {
 
     body.innerHTML = `
         <img src="${article.image}" style="width:100%; border-radius:10px; margin-bottom:20px;">
-        <h2 style="font-family: 'Cinzel', serif; color:#4a0404; margin-bottom:10px;">${article.title}</h2>
-        <p style="color:#c5a059; text-transform:uppercase; font-size:0.8rem; font-weight:bold; letter-spacing:1px; margin-bottom:20px;">
-            ${article.category}
-        </p>
-        <hr style="border:0; border-top:1px solid #eee; margin-bottom:20px;">
-        <div class="article-full-text" style="font-family: 'Playfair Display', serif; line-height:1.8; font-size:1.1rem; color:#333;">
-            ${article.content}
-        </div>
+        <h2 style="font-family: 'Cinzel', serif; color:#4a0404;">${article.title}</h2>
+        <p style="color:#c5a059; font-weight:bold;">${article.category}</p>
+        <hr style="border:0; border-top:1px solid #eee; margin: 20px 0;">
+        <div style="font-family: 'Playfair Display', serif; line-height:1.8;">${article.content}</div>
     `;
 
     modal.style.display = "block";
     document.body.style.overflow = "hidden";
 }
 
-// 4. Fermeture de la fenêtre
+// 4. Fermeture de la Modal
 function closeArticle() {
     const modal = document.getElementById('articleModal');
     if (modal) {
@@ -73,19 +66,17 @@ function closeArticle() {
     }
 }
 
-// 5. Fermer si on clique sur le fond sombre
+// 5. Fermer au clic extérieur
 window.onclick = function(event) {
     const modal = document.getElementById('articleModal');
-    if (event.target == modal) {
-        closeArticle();
-    }
+    if (event.target == modal) closeArticle();
 };
 
-// 6. Lancement au chargement de la page
+// 6. Lancement
 window.addEventListener('load', () => {
     if (typeof knowledgeBase !== 'undefined') {
         displayArticles(knowledgeBase);
-        // Petit délai de sécurité pour que le navigateur calcule bien la largeur des images
+        // On attend un peu que le rendu soit fait
         setTimeout(startAutoScroll, 500);
     }
 });
