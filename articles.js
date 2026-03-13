@@ -1,59 +1,48 @@
-// Affiche les articles dans la grille HTML
+// 1. Fonction pour afficher les articles sous forme de cartes cliquables
 function displayArticles(data) {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
     
     grid.innerHTML = data.map(art => `
-        <div class="article-card" onclick="openArticle('${art.id}')">
-            <img src="${art.image}" style="width:100%; height:150px; object-fit:cover; border-radius:8px;">
-            <p style="color:#d4af37; font-weight:bold; font-size:0.8rem; margin-top:10px;">${art.category}</p>
-            <h3>${art.title}</h3>
-            <p style="color:#666; font-size:0.9rem;">${art.description}</p>
+        <div class="article-card" onclick="goToArticle('${art.id}')">
+            <img src="${art.image}" style="width:100%; height:180px; object-fit:cover;">
+            <div style="padding:15px;">
+                <span style="color:#d4af37; font-size:0.8rem;">${art.category}</span>
+                <h3 style="margin:10px 0; font-size:1.1rem;">${art.title}</h3>
+            </div>
         </div>
     `).join('');
 }
 
-// Ouvre l'article complet dans la Modal
-function openArticle(id) {
-    const art = knowledgeBase.find(a => a.id === id);
-    const modal = document.getElementById('articleModal');
-    const body = document.getElementById('modalBody');
-    
-    body.innerHTML = `
-        <h2>${art.title}</h2>
-        <p style="color:#d4af37;">${art.category} | ${art.tags.join(', ')}</p>
-        <hr>
-        <p style="font-size:1.1rem; line-height:1.6;">${art.content}</p>
-    `;
-    modal.style.display = "block";
+// 2. FONCTION DE NAVIGATION (La nouvelle page)
+function goToArticle(id) {
+    // On change de page en envoyant l'ID
+    window.location.href = `article-detail.html?id=${id}`;
 }
 
-function closeModal() {
-    document.getElementById('articleModal').style.display = "none";
+// 3. LOGIQUE DU CARROUSEL
+let scrollAmount = 0;
+function startCarousel() {
+    const grid = document.getElementById('articles-grid');
+    if (!grid) return;
+
+    setInterval(() => {
+        grid.scrollLeft += 1; // Défilement lent vers la droite
+        scrollAmount += 1;
+        
+        // Si on arrive au bout, on revient au début
+        if (scrollAmount >= grid.scrollWidth - grid.clientWidth) {
+            grid.scrollLeft = 0;
+            scrollAmount = 0;
+        }
+    }, 300); // Vitesse du défilé (plus le chiffre est petit, plus c'est rapide)
 }
 
-// Recherche temps réel
-function searchArticles() {
-    const term = document.getElementById('articleSearch').value.toLowerCase();
-    const filtered = knowledgeBase.filter(a => 
-        a.title.toLowerCase().includes(term) || 
-        a.description.toLowerCase().includes(term) ||
-        a.tags.some(t => t.toLowerCase().includes(term))
-    );
-    displayArticles(filtered);
-}
-
-// Filtres boutons
-function filterByTag(tag) {
-    // Style boutons
-    document.querySelectorAll('.tag-pill').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-
-    const filtered = (tag === 'all') ? knowledgeBase : knowledgeBase.filter(a => a.tags.includes(tag) || a.category === tag);
-    displayArticles(filtered);
-}
-
-// CHARGEMENT INITIAL
+// 4. CHARGEMENT
 window.onload = () => {
     displayArticles(knowledgeBase);
+    // On active le carrousel si on est sur la page principale des articles
+    if(document.getElementById('articles-grid')) {
+        startCarousel();
+    }
 };
