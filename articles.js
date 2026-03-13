@@ -7,7 +7,7 @@ function displayArticles(data) {
             <div class="card-content">
                 <span class="card-category">${art.category}</span>
                 <h3 class="card-title">${art.title}</h3>
-                <p>${art.description}</p>
+                <p style="font-size: 0.9rem; color: #666;">${art.description}</p>
             </div>
         </div>
     `).join('');

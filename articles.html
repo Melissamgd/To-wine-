@@ -5,33 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connaissances - To Wine</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+ <style>
+    /* 1. RESET & BASES */
+    :root {
+        --bordeaux: #4a0404;
+        --gold: #d4af37;
+    }
+
+    /* 2. LE CONTENEUR DU CARROUSEL */
+    /* On remplace la grille classique par un conteneur flexible horizontal */
+    .articles-grid {
+        display: flex; 
+        overflow-x: auto; 
+        gap: 30px;
+        padding: 40px 10%;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch; /* Défilement fluide sur iPhone */
+    }
+
+    /* On cache la barre de défilement pour un look "App" */
+    .articles-grid::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* 3. LES CARTES D'ARTICLES */
+    .article-card {
+        min-width: 320px; /* Largeur fixe pour forcer le défilement */
+        max-width: 320px;
+        flex-shrink: 0;   /* Empêche les cartes de rétrécir */
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 1px solid #eee;
+    }
+
+    .article-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(74, 4, 4, 0.1);
+    }
+
+    .card-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .card-content {
+        padding: 20px;
+        white-space: normal; /* Autorise le texte à revenir à la ligne à l'intérieur de la carte */
+    }
+
+    /* 4. BARRE DE RECHERCHE */
+    .search-section {
+        text-align: center;
+        padding: 40px 20px;
+        background: #fdfbfb;
+    }
+
+    #articleSearch {
+        width: 100%;
+        max-width: 500px;
+        padding: 15px 25px;
+        border-radius: 30px;
+        border: 1px solid var(--gold);
+        outline: none;
+    }
+</style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">TO WINE</div>
-        <div class="nav-links">
-            <a href="index.html">Catalogue</a>
-            <a href="articles.html" class="active">Connaissances</a>
-        </div>
-    </nav>
+    <header>
+        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 10%; background: #fff; border-bottom: 1px solid #eee;">
+            <div class="logo" style="color: #4a0404; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: bold;">TO WINE</div>
+            <ul style="display: flex; list-style: none; gap: 30px; margin: 0;">
+                <li><a href="index.html" style="text-decoration: none; color: #666;">Catalogue</a></li>
+                <li><a href="articles.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #d4af37; padding-bottom: 5px;">Connaissances</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <main>
-        <section class="hero-articles">
-            <h1>Le Savoir To Wine</h1>
-            <p>Découvrez l'expertise de notre cave à travers nos guides.</p>
+        <section style="text-align: center; padding: 60px 20px; background: #fdfbfb;">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: #4a0404;">Le Savoir To Wine</h1>
+            <p style="margin-bottom: 30px; color: #666;">Explorez l'univers de l'oenologie à travers nos guides détaillés.</p>
             
-            <div class="search-container">
-                <input type="text" id="articleSearch" placeholder="Rechercher (ex: Moelleux, Bordeaux...)" onkeyup="searchArticles()">
-            </div>
+            <input type="text" id="articleSearch" list="wine-suggestions" placeholder="Rechercher un sujet (ex: Moelleux, Terroir...)" onkeyup="searchArticles()">
+            <datalist id="wine-suggestions">
+                <option value="Bourgogne">
+                <option value="Bordeaux">
+                <option value="Moelleux">
+                <option value="Sec">
+                <option value="Tanins">
+                <option value="Dégustation">
+            </datalist>
         </section>
 
         <div id="articles-grid" class="articles-grid">
             </div>
     </main>
 
+    <footer style="background: #4a0404; color: white; padding: 40px; text-align: center; margin-top: 50px;">
+        <p>&copy; 2024 To Wine - Projet Master 2</p>
+    </footer>
+
     <script src="articles_data.js"></script>
     <script src="articles.js"></script>
-
 </body>
 </html>

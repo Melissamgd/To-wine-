@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiche du Vin - Détails</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #fdfcfc; padding: 20px; color: #333; line-height: 1.6; }
+        
+        .fiche-container { 
+            max-width: 700px; 
+            margin: 50px auto; 
+            background: white; 
+            padding: 40px; 
+            border-radius: 20px; 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        /* Bordures de couleur selon le type */
+        .type-rouge { border-top: 15px solid #800020; }
+        .type-blanc { border-top: 15px solid #f4e04d; }
+        .type-rose { border-top: 15px solid #ffc0cb; }
+        .type-liquoreux { border-top: 15px solid #ffae42; }
+
+        h1 { color: #800020; margin-top: 0; font-size: 2.5em; border-bottom: 2px solid #f9f9f9; padding-bottom: 15px; }
+        
+        .info-grid { display: grid; grid-template-columns: 150px 1fr; gap: 15px; margin-top: 20px; }
+        .label { font-weight: bold; color: #888; text-transform: uppercase; font-size: 0.85em; }
+        .value { color: #333; font-size: 1.1em; }
+
+        .description-box { 
+            margin-top: 30px; 
+            padding: 25px; 
+            background: #f9f6f6; 
+            border-left: 5px solid #800020; 
+            border-radius: 8px;
+            font-style: italic;
+        }
+
+        .price-big { 
+            display: block; 
+            margin-top: 30px; 
+            font-size: 2em; 
+            color: #27ae60; 
+            font-weight: bold; 
+            text-align: right; 
+        }
+
+        .btn-retour { 
+            display: inline-block; 
+            margin-top: 40px; 
+            text-decoration: none; 
+            color: #800020; 
+            font-weight: bold; 
+            border: 2px solid #800020; 
+            padding: 10px 25px; 
+            border-radius: 50px;
+            transition: 0.3s;
+        }
+        .btn-retour:hover { background: #800020; color: white; }
+    </style>
+</head>
+<body>
+
+    <div id="affichage-vin">
+        </div>
+
+    <script>
+        // 1. Récupérer l'ID dans l'adresse (ex: ?id=3)
+        const urlParams = new URLSearchParams(window.location.search);
+        const idRecherche = urlParams.get('id');
+
+        // 2. Lire le fichier JSON
+        fetch('vins.json')
+            .then(response => response.json())
+            .then(vins => {
+                // 3. Trouver le vin correspondant à l'ID
+                const vin = vins.find(v => v.id == idRecherche);
+
+                const zoneAffichage = document.getElementById('affichage-vin');
+
+                if (vin) {
+                    // Nettoyage du type pour le CSS
+                    let typeCSS = vin.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                    if (typeCSS.includes("liquoreux")) typeCSS = "liquoreux";
+
+                    // 4. Afficher la fiche unique
+                    zoneAffichage.innerHTML = `
+                        <div class="fiche-container type-${typeCSS}">
+                            <h1>${vin.nom}</h1>
+                            
+                            <div class="info-grid">
+                                <div class="label">🌍 Pays</div><div class="value">${vin.pays}</div>
+                                <div class="label">📍 Région</div><div class="value">${vin.region} (${vin.annee})</div>
+                                <div class="label">🍇 Cépage</div><div class="value">${vin.cepage}</div>
+                                <div class="label">🎨 Type</div><div class="value">${vin.type}</div>
+                                <div class="label">🍽️ Accords</div><div class="value">${vin.accords_mets}</div>
+                            </div>
+
+                            <div class="description-box">
+                                "${vin.description}"
+                            </div>
+
+                            <span class="price-big">${vin.prix_estime} €</span>
+
+                            <div style="text-align: center;">
+                                <a href="articles.html" class="btn-retour">← Retour à la cave</a>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    zoneAffichage.innerHTML = `
+                        <div class="fiche-container" style="text-align:center;">
+                            <h2>🍷 Vin introuvable</h2>
+                            <p>Désolé, nous ne trouvons pas cette bouteille.</p>
+                            <a href="articles.html" class="btn-retour">Retour au catalogue</a>
+                        </div>
+                    `;
+                }
+            })
+            .catch(error => {
+                console.error("Erreur:", error);
+                document.getElementById('affichage-vin').innerHTML = "Erreur de chargement.";
+            });
+    </script>
+</body>
+</html>
