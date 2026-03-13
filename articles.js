@@ -1,59 +1,79 @@
-// Affiche les articles dans la grille HTML
+/**
+ * TO WINE - LOGIQUE DES ARTICLES
+ * Gère l'affichage en carrousel, la recherche et la navigation
+ */
+
+// 1. AFFICHAGE INITIAL
 function displayArticles(data) {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
     
-    grid.innerHTML = data.map(art => `
-        <div class="article-card" onclick="openArticle('${art.id}')">
-            <img src="${art.image}" style="width:100%; height:150px; object-fit:cover; border-radius:8px;">
-            <p style="color:#d4af37; font-weight:bold; font-size:0.8rem; margin-top:10px;">${art.category}</p>
-            <h3>${art.title}</h3>
-            <p style="color:#666; font-size:0.9rem;">${art.description}</p>
-        </div>
-    `).join('');
+    // On vide la grille avant de la remplir
+    grid.innerHTML = '';
+
+    if (data.length === 0) {
+        grid.innerHTML = '<p style="padding: 20px;">Aucun article ne correspond à votre recherche.</p>';
+        return;
+    }
+
+    data.forEach(art => {
+        grid.innerHTML += `
+            <div class="article-card" onclick="goToArticle('${art.id}')">
+                <img src="${art.image}" class="card-img" alt="${art.title}">
+                <div class="card-content">
+                    <span class="card-category">${art.category}</span>
+                    <h3 class="card-title">${art.title}</h3>
+                    <p style="font-size: 0.9rem; color: #666;">${art.description}</p>
+                </div>
+            </div>
+        `;
+    });
 }
 
-// Ouvre l'article complet dans la Modal
-function openArticle(id) {
-    const art = knowledgeBase.find(a => a.id === id);
-    const modal = document.getElementById('articleModal');
-    const body = document.getElementById('modalBody');
-    
-    body.innerHTML = `
-        <h2>${art.title}</h2>
-        <p style="color:#d4af37;">${art.category} | ${art.tags.join(', ')}</p>
-        <hr>
-        <p style="font-size:1.1rem; line-height:1.6;">${art.content}</p>
-    `;
-    modal.style.display = "block";
+// 2. NAVIGATION VERS LA PAGE DÉTAIL
+function goToArticle(id) {
+    // Redirige vers la nouvelle page en passant l'ID dans l'URL
+    window.location.href = `article-detail.html?id=${id}`;
 }
 
-function closeModal() {
-    document.getElementById('articleModal').style.display = "none";
-}
-
-// Recherche temps réel
+// 3. RECHERCHE TEMPS RÉEL
 function searchArticles() {
     const term = document.getElementById('articleSearch').value.toLowerCase();
-    const filtered = knowledgeBase.filter(a => 
-        a.title.toLowerCase().includes(term) || 
-        a.description.toLowerCase().includes(term) ||
-        a.tags.some(t => t.toLowerCase().includes(term))
+    
+    // On filtre dans la base de données (chargée via articles_data.js)
+    const filtered = knowledgeBase.filter(art => 
+        art.title.toLowerCase().includes(term) || 
+        art.description.toLowerCase().includes(term) ||
+        art.tags.some(t => t.toLowerCase().includes(term))
     );
+    
     displayArticles(filtered);
 }
 
-// Filtres boutons
-function filterByTag(tag) {
-    // Style boutons
-    document.querySelectorAll('.tag-pill').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
+// 4. AUTO-DÉFILEMENT DU CARROUSEL
+let isPaused = false;
+function initCarouselScroll() {
+    const grid = document.getElementById('articles-grid');
+    if (!grid) return;
 
-    const filtered = (tag === 'all') ? knowledgeBase : knowledgeBase.filter(a => a.tags.includes(tag) || a.category === tag);
-    displayArticles(filtered);
+    // Arrête le défilement si l'utilisateur survole avec la souris
+    grid.addEventListener('mouseenter', () => isPaused = true);
+    grid.addEventListener('mouseleave', () => isPaused = false);
+
+    setInterval(() => {
+        if (!isPaused) {
+            grid.scrollLeft += 1; // Vitesse de défilement (1px)
+            
+            // Si on arrive au bout, on repart doucement du début
+            if (grid.scrollLeft >= (grid.scrollWidth - grid.clientWidth)) {
+                grid.scrollLeft = 0;
+            }
+        }
+    }, 30); // Fluidité (30ms)
 }
 
-// CHARGEMENT INITIAL
+// 5. LANCEMENT AU CHARGEMENT
 window.onload = () => {
     displayArticles(knowledgeBase);
+    initCarouselScroll();
 };

@@ -2,61 +2,126 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connaissances - To Wine</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        /* Styles rapides pour s'assurer que la modal est cachée */
-        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: white; margin: 5% auto; padding: 30px; width: 70%; border-radius: 15px; position: relative; max-height: 80vh; overflow-y: auto; }
-        .close-btn { position: absolute; right: 20px; top: 10px; cursor: pointer; font-size: 30px; }
-        .articles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; }
-        .article-card { border: 1px solid #eee; padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; background: white; }
-        .article-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateY(-3px); }
-        .tag-pill { padding: 8px 15px; border-radius: 20px; border: 1px solid #d4af37; cursor: pointer; background: white; }
-        .tag-pill.active { background: #4a0404; color: white; }
+        /* === STYLE DU CARROUSEL === */
+        :root {
+            --bordeaux: #4a0404;
+            --gold: #d4af37;
+        }
+
+        body { background-color: #fdfbfb; margin: 0; font-family: 'Montserrat', sans-serif; }
+
+        .search-section {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        #articleSearch {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 25px;
+            border-radius: 30px;
+            border: 1px solid var(--gold);
+            font-size: 1rem;
+            outline: none;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        /* Conteneur horizontal */
+        .articles-grid {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 20px 10% 50px 10%;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* On cache la barre de défilement */
+        .articles-grid::-webkit-scrollbar { display: none; }
+
+        .article-card {
+            min-width: 320px;
+            max-width: 320px;
+            flex-shrink: 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid #eee;
+        }
+
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(74, 4, 4, 0.1);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+            white-space: normal; /* Important pour que le texte revienne à la ligne */
+        }
+
+        .card-category {
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .card-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--bordeaux);
+            margin: 10px 0;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
+
     <header>
-        <nav style="display: flex; justify-content: space-between; padding: 20px 10%; background: #fff; border-bottom: 1px solid #eee;">
-            <div style="font-weight: bold; color: #4a0404;">TO WINE</div>
-            <ul style="display: flex; list-style: none; gap: 20px;">
-                <li><a href="index.html">Catalogue</a></li>
-                <li><a href="articles.html" style="font-weight: bold; border-bottom: 2px solid #d4af37;">Connaissances</a></li>
+        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 10%; background: #fff; border-bottom: 1px solid #eee;">
+            <div class="logo" style="color: var(--bordeaux); font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: bold;">TO WINE</div>
+            <ul style="display: flex; list-style: none; gap: 30px; margin: 0;">
+                <li><a href="index.html" style="text-decoration: none; color: #666;">Catalogue</a></li>
+                <li><a href="articles.html" style="text-decoration: none; color: var(--bordeaux); font-weight: bold; border-bottom: 2px solid var(--gold); padding-bottom: 5px;">Connaissances</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section style="text-align: center; padding: 40px;">
-            <h1>Le Savoir To Wine</h1>
-            <input type="text" id="articleSearch" list="wine-suggestions" placeholder="Rechercher une région, un mot..." onkeyup="searchArticles()" style="padding:15px; width:60%; border-radius:30px; border:1px solid #d4af37; outline:none;">
+        <section class="search-section">
+            <h1 style="font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--bordeaux);">Le Savoir To Wine</h1>
+            <p style="color: #666; margin-bottom: 30px;">Découvrez l'expertise de notre cave à travers nos guides.</p>
+            
+            <input type="text" id="articleSearch" list="wine-suggestions" placeholder="Rechercher (ex: Moelleux, Bordeaux...)" onkeyup="searchArticles()">
             <datalist id="wine-suggestions">
-                <option value="Bourgogne"><option value="Bordeaux"><option value="Moelleux"><option value="Sec"><option value="Rouge"><option value="Blanc">
+                <option value="Bourgogne">
+                <option value="Bordeaux">
+                <option value="Moelleux">
+                <option value="Sec">
+                <option value="Dégustation">
             </datalist>
-
-            <div style="margin-top:20px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-                <button class="tag-pill active" onclick="filterByTag('all')">Tous</button>
-                <button class="tag-pill" onclick="filterByTag('Savoir')">Savoir</button>
-                <button class="tag-pill" onclick="filterByTag('Bourgogne')">Bourgogne</button>
-                <button class="tag-pill" onclick="filterByTag('Rouge')">Rouge</button>
-            </div>
         </section>
 
-        <div id="articles-grid" class="articles-grid"></div>
-
-        <div id="articleModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn" onclick="closeModal()">&times;</span>
-                <div id="modalBody"></div>
-                <div style="margin-top:30px; border-top:1px solid #eee; padding-top:20px; text-align:center;">
-                    <p>Cet article vous a-t-il été utile ?</p>
-                    <button onclick="alert('Merci !')">Oui 👍</button>
-                    <button onclick="alert('Merci, nous allons l\'améliorer.')">Non 👎</button>
-                </div>
+        <div id="articles-grid" class="articles-grid">
             </div>
-        </div>
     </main>
+
+    <footer style="background: var(--bordeaux); color: white; padding: 40px; text-align: center;">
+        <p>&copy; 2024 To Wine - Projet Master 2</p>
+    </footer>
 
     <script src="articles_data.js"></script>
     <script src="articles.js"></script>
