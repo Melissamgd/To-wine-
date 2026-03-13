@@ -1,20 +1,34 @@
+// Affichage des cartes
 function displayArticles(data) {
     const grid = document.getElementById('articles-grid');
     if (!grid) return;
     
     grid.innerHTML = data.map(art => `
-        <div class="article-card" onclick="openArticle('${art.id}')" style="cursor:pointer;">
+        <div class="article-card" onclick="openArticle('${art.id}')">
             <img src="${art.image}" class="card-img" alt="${art.title}">
             <div class="card-content">
                 <span class="card-category">${art.category}</span>
                 <h3 class="card-title">${art.title}</h3>
-                <p>${art.description}</p>
+                <p style="font-size: 0.9rem; color: #666; white-space: normal;">${art.description}</p>
             </div>
         </div>
     `).join('');
 }
 
-// FONCTION POUR OUVRIR LA FENÊTRE
+// Défilement automatique
+function startAutoScroll() {
+    const grid = document.getElementById('articles-grid');
+    if (!grid) return;
+    
+    setInterval(() => {
+        grid.scrollLeft += 1; // Vitesse lente pour lecture
+        if (grid.scrollLeft >= (grid.scrollWidth - grid.clientWidth)) {
+            grid.scrollLeft = 0;
+        }
+    }, 30);
+}
+
+// Ouverture de la modal
 function openArticle(id) {
     const article = knowledgeBase.find(a => a.id === id);
     if (!article) return;
@@ -23,35 +37,33 @@ function openArticle(id) {
     const body = document.getElementById('modal-body');
 
     body.innerHTML = `
-        <img src="${article.image}">
-        <h2 style="color:#4a0404">${article.title}</h2>
-        <p style="color:#d4af37"><b>${article.category}</b></p>
-        <hr>
-        <div style="line-height:1.6; font-size:1.1rem; color:#333;">
+        <img src="${article.image}" style="width:100%; border-radius:10px; margin-bottom:20px;">
+        <h2 style="font-family: 'Cinzel'; color:#4a0404; margin-bottom:10px;">${article.title}</h2>
+        <div class="gold-text" style="font-size:0.8rem; margin-bottom:20px;">${article.category}</div>
+        <div class="article-full-text" style="font-family: 'Playfair Display'; line-height:1.8; font-size:1.1rem;">
             ${article.content}
         </div>
     `;
 
     modal.style.display = "block";
-    document.body.style.overflow = "hidden"; // Empêche le fond de bouger
+    document.body.style.overflow = "hidden";
 }
 
-// FONCTION POUR FERMER
+// Fermeture
 function closeArticle() {
     document.getElementById('articleModal').style.display = "none";
-    document.body.style.overflow = "auto"; // Réactive le scroll du fond
+    document.body.style.overflow = "auto";
 }
 
-// Fermer si on clique à côté de la boîte
+// Fermer en cliquant à l'extérieur
 window.onclick = function(event) {
     const modal = document.getElementById('articleModal');
-    if (event.target == modal) {
-        closeArticle();
-    }
+    if (event.target == modal) closeArticle();
 }
 
 window.onload = () => {
     if (typeof knowledgeBase !== 'undefined') {
         displayArticles(knowledgeBase);
+        startAutoScroll();
     }
 };
