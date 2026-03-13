@@ -80,12 +80,10 @@ body {
     transition: 0.4s;
 }
 
-.wine-card:hover {
-    box-shadow: 0 10px 30px rgba(74, 4, 4, 0.1);
-    border-color: var(--gold);
-}
-
-.wine-card h3 { color: var(--bordeaux); margin-bottom: 10px; }
+.wine-card:hover { transform: translateY(-5px); }
+.wine-card h3 { color: var(--bordeaux); margin: 10px 0; }
+.wine-card .region { color: var(--gold); font-size: 0.9rem; text-transform: uppercase; }
+.wine-card .carac { font-size: 0.9rem; color: #555; margin-top: 0.5rem; }
 
 /* Filtres */
 .filter-bar { text-align: center; margin-bottom: 40px; }

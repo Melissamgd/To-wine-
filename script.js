@@ -1,16 +1,8 @@
-const wines = [
-    { name: "Château Margaux", region: "Bordelais", year: "2015", type: "Rouge", price: "650€" },
-    { name: "Meursault 1er Cru", region: "Bourgogne", year: "2018", type: "Blanc", price: "120€" },
-    { name: "Romanée-Conti", region: "Bourgogne", year: "2012", type: "Rouge", price: "Sur devis" },
-    { name: "Saint-Émilion", region: "Bordelais", year: "2017", type: "Rouge", price: "85€" },
-    { name: "Chablis Grand Cru", region: "Bourgogne", year: "2020", type: "Blanc", price: "95€" },
-    { name: "Pomerol", region: "Bordelais", year: "2016", type: "Rouge", price: "140€" }
-];
+let wines = [];
 
 function displayWines(filter = 'all') {
     const grid = document.getElementById('wine-grid');
-    if(!grid) return;
-    
+    if (!grid) return;
     grid.innerHTML = '';
 
     const filtered = filter === 'all' ? wines : wines.filter(w => w.region === filter);
@@ -19,13 +11,33 @@ function displayWines(filter = 'all') {
         grid.innerHTML += `
             <div class="wine-card">
                 <span class="gold-text">${wine.region}</span>
-                <h3>${wine.name}</h3>
-                <p>${wine.year} — ${wine.type}</p>
-                <p style="color: #4a0404; font-weight: bold; margin-top: 10px;">${wine.price}</p>
-                <button class="btn-filter" style="margin-top: 15px; font-size: 0.7rem;">Voir la fiche</button>
+                <h3>${wine.nom || wine.name}</h3>
+                <p>${wine.annee || wine.year} - ${wine.type}</p>
+                <p class="carac"><strong>Caractéristique :</strong> ${wine.caracteristique || ''}</p>
+                <button class="details-btn" data-id="${wine.id}" style="margin-top:10px; background:none; border:none; color:#630d16; cursor:pointer; text-decoration:underline;">Détails</button>
             </div>
         `;
     });
+
+    // attach listeners after DOM update
+    document.querySelectorAll('.details-btn').forEach(btn => {
+        btn.addEventListener('click', e => {
+            const id = e.currentTarget.dataset.id;
+            // open a new tab displaying a dedicated HTML page with wine details
+            window.open(`details.html?id=${id}`, '_blank');
+        });
+    });
 }
 
-window.onload = () => displayWines('all');
+window.onload = () => {
+    fetch('vins.json')
+        .then(r => {
+            if (!r.ok) throw new Error('Impossible de charger vins.json');
+            return r.json();
+        })
+        .then(data => {
+            wines = data;
+            displayWines('all');
+        })
+        .catch(err => console.error(err));
+};
