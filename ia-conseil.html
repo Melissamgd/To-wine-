@@ -3,48 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To Wine - Sommelier IA</title>
+    <title>To Wine - Vina, votre Sommelier IA</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        .chat-container { max-width: 600px; margin: 30px auto; background: white; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; height: 550px; }
-        #chat-window { flex: 1; padding: 20px; overflow-y: auto; background: #fdfaf5; display: flex; flex-direction: column; gap: 15px; }
-        .message { max-width: 80%; padding: 12px 18px; border-radius: 20px; font-family: 'Playfair Display', serif; line-height: 1.4; }
-        .bot { background: #4a0404; color: white; align-self: flex-start; border-bottom-left-radius: 2px; }
-        .user { background: #eee; color: #333; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .chat-input-area { display: flex; padding: 15px; background: white; border-top: 1px solid #eee; }
-        #user-input { flex: 1; border: none; padding: 10px; outline: none; font-size: 1rem; }
-        .send-btn, .quiz-btn { background: #4a0404; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; transition: 0.3s; }
-        .quiz-btn { background: #c5a059; margin-top: 10px; font-weight: bold; }
-        .quiz-btn:hover { background: #4a0404; }
+        .chat-container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 550px;
+        }
+        #chat-window {
+            flex: 1;
+            padding: 25px;
+            overflow-y: auto;
+            background: #fdfaf5;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .message {
+            max-width: 80%;
+            padding: 15px 20px;
+            border-radius: 20px;
+            font-family: 'Playfair Display', serif;
+            line-height: 1.5;
+            position: relative;
+        }
+        /* Style "Vina, le Bot" */
+        .bot {
+            background: #4a0404;
+            color: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 2px;
+        }
+        /* Style "L'Utilisateur" */
+        .user {
+            background: #eee;
+            color: #333;
+            align-self: flex-end;
+            border-bottom-right-radius: 2px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.9rem;
+        }
+        /* Zone de saisie */
+        .chat-input-area {
+            display: flex;
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+        #user-input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            outline: none;
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .send-btn {
+            background: #4a0404;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 600;
+        }
+        .send-btn:hover { background: #630d16; }
+
+        /* Style spécifique pour la card vin à la fin */
+        .wine-card-bot {
+            border: 2px solid #c5a059;
+            background: #fff;
+            color: #333;
+            border-radius: 15px;
+            padding: 15px;
+            max-width: 80%;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
+
     <header>
         <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee;">
             <div class="logo" style="color: #4a0404; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: bold;">TO WINE</div>
-<ul style="display: flex; list-style: none; gap: 25px; margin: 0; padding: 0;">
-    <li><a href="index.html" style="text-decoration: none; color: #666;">Accueil</a></li>
-    <li><a href="fiche.html" style="text-decoration: none; color: #666;">Catalogue</a></li>
-    <li><a href="articles.html" style="text-decoration: none; color: #666;">Connaissances</a></li>
-    <li><a href="ia-conseil.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #c5a059; padding-bottom: 5px;">Sommelier IA</a></li>
-</ul>
+            <ul style="display: flex; list-style: none; gap: 25px; margin: 0; padding: 0;">
+                <li><a href="index.html" style="text-decoration: none; color: #666;">Accueil</a></li>
+                <li><a href="fiche.html" style="text-decoration: none; color: #666;">Catalogue</a></li>
+                <li><a href="ia-conseil.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #c5a059;">Sommelier IA</a></li>
+            </ul>
         </nav>
     </header>
 
     <main>
-        <div style="text-align: center; margin-top: 30px;">
-            <h1 style="font-family: 'Cinzel'; color: #4a0404; margin-bottom: 5px;">Votre Sommelier IA</h1>
-            <p style="font-family: 'Playfair Display'; font-style: italic;">Posez-moi une question ou laissez-vous guider...</p>
-            <button class="quiz-btn" onclick="startQuiz()">🍷 Lancer mon Profil Oenologique</button>
+        <div style="text-align: center; margin-top: 40px;">
+            <h1 style="font-family: 'Cinzel'; color: #4a0404;">Vina, votre Sommelier IA</h1>
+            <p style="font-family: 'Playfair Display'; font-style: italic; color: #555;">Une bouteille intelligente pour guider votre palais.</p>
         </div>
 
         <div class="chat-container">
             <div id="chat-window">
-                <div class="message bot">Bonjour ! Je suis votre sommelier virtuel. Je peux répondre à vos questions ou vous proposer un petit quiz pour trouver votre vin idéal.</div>
+                <div class="message bot">Bonjour ! Je suis **Vina**, la mascotte de *To Wine*. Posez-moi une question ou demandez-moi quel vin est fait pour vous !</div>
             </div>
             <div class="chat-input-area">
-                <input type="text" id="user-input" placeholder="Écrivez ici...">
+                <input type="text" id="user-input" placeholder="Bonjour Vina, je cherche un vin de Bordeaux...">
                 <button class="send-btn" onclick="sendMessage()">Envoyer</button>
             </div>
         </div>
