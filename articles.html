@@ -2,61 +2,36 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connaissances - To Wine</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        /* Styles rapides pour s'assurer que la modal est cachée */
-        .modal { display: none; position: fixed; z-index: 999; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); }
-        .modal-content { background: white; margin: 5% auto; padding: 30px; width: 70%; border-radius: 15px; position: relative; max-height: 80vh; overflow-y: auto; }
-        .close-btn { position: absolute; right: 20px; top: 10px; cursor: pointer; font-size: 30px; }
-        .articles-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; padding: 20px; }
-        .article-card { border: 1px solid #eee; padding: 15px; border-radius: 10px; cursor: pointer; transition: 0.3s; background: white; }
-        .article-card:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.1); transform: translateY(-3px); }
-        .tag-pill { padding: 8px 15px; border-radius: 20px; border: 1px solid #d4af37; cursor: pointer; background: white; }
-        .tag-pill.active { background: #4a0404; color: white; }
-    </style>
 </head>
 <body>
+
     <header>
-        <nav style="display: flex; justify-content: space-between; padding: 20px 10%; background: #fff; border-bottom: 1px solid #eee;">
-            <div style="font-weight: bold; color: #4a0404;">TO WINE</div>
-            <ul style="display: flex; list-style: none; gap: 20px;">
-                <li><a href="index.html">Catalogue</a></li>
-                <li><a href="articles.html" style="font-weight: bold; border-bottom: 2px solid #d4af37;">Connaissances</a></li>
-            </ul>
+       <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000;">
+    <div class="logo" style="color: #4a0404; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">TO WINE</div>
+<ul style="display: flex; list-style: none; gap: 25px; margin: 0; padding: 0;">
+    <li><a href="index.html" style="text-decoration: none; color: #666;">Accueil</a></li>
+    <li><a href="fiche.html" style="text-decoration: none; color: #666;">Catalogue</a></li>
+    <li><a href="articles.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #c5a059; padding-bottom: 5px;">Connaissances</a></li>
+    <li><a href="ia-conseil.html" style="text-decoration: none; color: #666;">Sommelier IA</a></li>
+</ul>
         </nav>
     </header>
 
     <main>
-        <section style="text-align: center; padding: 40px;">
-            <h1>Le Savoir To Wine</h1>
-            <input type="text" id="articleSearch" list="wine-suggestions" placeholder="Rechercher une région, un mot..." onkeyup="searchArticles()" style="padding:15px; width:60%; border-radius:30px; border:1px solid #d4af37; outline:none;">
-            <datalist id="wine-suggestions">
-                <option value="Bourgogne"><option value="Bordeaux"><option value="Moelleux"><option value="Sec"><option value="Rouge"><option value="Blanc">
-            </datalist>
-
-            <div style="margin-top:20px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
-                <button class="tag-pill active" onclick="filterByTag('all')">Tous</button>
-                <button class="tag-pill" onclick="filterByTag('Savoir')">Savoir</button>
-                <button class="tag-pill" onclick="filterByTag('Bourgogne')">Bourgogne</button>
-                <button class="tag-pill" onclick="filterByTag('Rouge')">Rouge</button>
+        <h2 style="text-align: center; margin-top: 40px; font-family: 'Playfair Display'; color: #4a0404;">Nos Guides Oenologiques</h2>
+        <div id="articles-grid" class="articles-grid">
             </div>
-        </section>
-
-        <div id="articles-grid" class="articles-grid"></div>
-
-        <div id="articleModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn" onclick="closeModal()">&times;</span>
-                <div id="modalBody"></div>
-                <div style="margin-top:30px; border-top:1px solid #eee; padding-top:20px; text-align:center;">
-                    <p>Cet article vous a-t-il été utile ?</p>
-                    <button onclick="alert('Merci !')">Oui 👍</button>
-                    <button onclick="alert('Merci, nous allons l\'améliorer.')">Non 👎</button>
-                </div>
-            </div>
-        </div>
     </main>
+
+    <div id="articleModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeArticle()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
 
     <script src="articles_data.js"></script>
     <script src="articles.js"></script>
