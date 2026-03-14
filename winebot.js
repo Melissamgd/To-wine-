@@ -1,21 +1,11 @@
 let catalogueVins = [];
 let quizActive = false;
 let quizStep = 0;
-let userPreferences = { type: "", intensite: "" };
+let userChoices = [];
+let scores = { rouge: 0, blanc: 0, puissant: 0, leger: 0 };
 
-// 1. Chargement du catalogue
-fetch('vins.json')
-    .then(r => r.json())
-    .then(data => catalogueVins = data);
+fetch('vins.json').then(r => r.json()).then(data => catalogueVins = data);
 
-// 2. Lancer le Quiz
-function startQuiz() {
-    quizActive = true;
-    quizStep = 1;
-    appendMessage("C'est parti ! 🍷 Question 1 : Préférez-vous les saveurs sucrées (chocolat, fruits mûrs) ou fraîches (agrumes, pomme verte) ?", 'bot');
-}
-
-// 3. Envoyer un message
 function sendMessage() {
     const input = document.getElementById('user-input');
     const msg = input.value.trim();
@@ -24,73 +14,98 @@ function sendMessage() {
     appendMessage(msg, 'user');
     input.value = "";
 
+    showTyping();
     setTimeout(() => {
-        // Si le message contient des mots clés de vin mais qu'on n'est pas en quiz
-        if (!quizActive) {
-            const response = generateGeneralResponse(msg.toLowerCase());
-            appendMessage(response, 'bot');
+        hideTyping();
+        if (quizActive) {
+            handleQuiz(msg.toLowerCase());
         } else {
-            handleQuizLogic(msg.toLowerCase());
+            if (msg.toLowerCase().includes("quiz")) startQuiz();
+            else appendMessage(generateResponse(msg.toLowerCase()), 'bot');
         }
-    }, 800);
+    }, 1000);
 }
 
-// 4. Logique du Quiz
-function handleQuizLogic(text) {
+function startQuiz() {
+    quizActive = true;
+    quizStep = 1;
+    userChoices = [];
+    appendMessage("C'est parti ! 🥂 Question 1 : Préférez-vous l'intensité d'un café noir ou la douceur d'un thé aux fruits ?", 'bot');
+}
+
+function handleQuiz(text) {
     if (quizStep === 1) {
-        userPreferences.type = (text.includes("sucré") || text.includes("chocolat")) ? "Rouge" : "Blanc";
+        if (text.includes("café")) { scores.puissant += 2; userChoices.push("amateur d'intensité"); }
+        else { scores.leger += 2; userChoices.push("adepte de finesse"); }
         quizStep = 2;
-        appendMessage("Noté ! Question 2 : Aimez-vous les saveurs fortes (café noir) ou légères (thé vert) ?", 'bot');
+        appendMessage("Noté. Question 2 : Êtes-vous plutôt agrumes frais ou fruits rouges bien juteux ?", 'bot');
     } 
     else if (quizStep === 2) {
-        userPreferences.intensite = (text.includes("fort") || text.includes("caractère")) ? "puissant" : "léger";
+        if (text.includes("agrume")) { scores.blanc += 2; userChoices.push("fan de fraîcheur"); }
+        else { scores.rouge += 2; userChoices.push("gourmand de fruits mûrs"); }
         quizStep = 3;
-        appendMessage("Dernière question : C'est pour un apéritif entre amis ou un grand dîner ?", 'bot');
+        appendMessage("Dernière question : Préférez-vous un apéritif convivial ou un dîner gastronomique ?", 'bot');
     }
     else if (quizStep === 3) {
         quizActive = false;
-        showFinalRecommendation();
+        showResult(text);
     }
 }
 
-// 5. Recommandation avec IMAGE
-function showFinalRecommendation() {
-    // On cherche un vin qui correspond au type choisi
-    const vinTrouve = catalogueVins.find(v => v.type === userPreferences.type) || catalogueVins[0];
+function showResult(lastText) {
+    const type = scores.rouge >= scores.blanc ? "Rouge" : "Blanc";
+    const vin = catalogueVins.find(v => v.type === type) || catalogueVins[0];
     
-    appendMessage(`D'après votre profil, il vous faut un vin ${userPreferences.intensite}. Voici ma sélection :`, 'bot');
-    
-    // On injecte du HTML pour la photo
-    const chatWindow = document.getElementById('chat-window');
-    const card = document.createElement('div');
-    card.classList.add('message', 'bot');
-    card.style.background = "#fff";
-    card.style.color = "#333";
-    card.style.border = "1px solid #c5a059";
+    appendMessage(`Analyse terminée ! Comme vous êtes ${userChoices[0]} et ${userChoices[1]}, j'ai trouvé la perle rare.`, 'bot');
 
-    card.innerHTML = `
-        <img src="${vinTrouve.image || 'https://via.placeholder.com/150'}" style="width:100%; border-radius:10px; margin-bottom:10px;">
-        <strong style="color:#4a0404; font-size:1.1rem;">${vinTrouve.nom || vinTrouve.name}</strong><br>
-        <span style="font-size:0.9rem;">${vinTrouve.region} - ${vinTrouve.annee || ''}</span><br>
-        <p style="font-size:0.85rem; margin-top:5px; font-style:italic;">"${vinTrouve.caracteristique || 'Un choix parfait pour vous.'}"</p>
-    `;
-    chatWindow.appendChild(card);
-    chatWindow.scrollTop = chatWindow.scrollHeight;
+    setTimeout(() => {
+        const chatWindow = document.getElementById('chat-window');
+        const card = document.createElement('div');
+        card.className = 'message bot';
+        card.style.border = "1px solid #c5a059";
+        card.style.background = "#fff";
+        card.style.color = "#333";
+        
+        card.innerHTML = `
+            <strong style="color:#4a0404; font-size:1.1rem;">${vin.nom}</strong><br>
+            <span style="color:#c5a059; font-weight:bold; font-size:0.8rem;">${vin.region} • ${vin.type}</span><br>
+            <p style="font-size:0.9rem; margin-top:8px;">
+                <strong>Pourquoi ce choix ?</strong> Ce vin s'accorde avec votre profil ${scores.puissant > scores.leger ? 'puissant' : 'délicat'}. ${vin.caracteristique}
+            </p>
+            <button onclick="location.href='fiche.html'" style="width:100%; background:#4a0404; color:white; border:none; padding:8px; border-radius:5px; cursor:pointer; margin-top:10px;">Voir au catalogue</button>
+        `;
+        chatWindow.appendChild(card);
+        chatWindow.scrollTop = chatWindow.scrollHeight;
+    }, 1000);
 }
 
-// 6. Réponses aux questions hors quiz
-function generateGeneralResponse(text) {
-    if (text.includes("pétrus") || text.includes("petrus")) return "Le Pétrus est l'un des plus grands vins de Bordeaux (Pomerol). C'est un 100% Merlot, connu pour sa complexité incroyable.";
-    if (text.includes("bordeaux")) return "Bordeaux est célèbre pour ses rouges puissants (Cabernet-Sauvignon/Merlot). Voulez-vous que je cherche un Bordeaux précis dans notre catalogue ?";
-    if (text.includes("température")) return "En général : 16-18°C pour les rouges, et 10-12°C pour les blancs.";
-    return "C'est une question intéressante ! Je ne la connais pas encore par cœur, mais je peux vous proposer le quiz pour trouver le vin qui vous correspond ?";
+function generateResponse(text) {
+    if (text.includes("bonjour")) return "Bonjour ! Je suis Vina. Cliquez sur le bouton doré pour lancer mon quiz !";
+    return "Je ne suis pas sûre de comprendre, mais mon quiz est là pour vous aider !";
 }
 
 function appendMessage(text, side) {
     const chatWindow = document.getElementById('chat-window');
     const msgDiv = document.createElement('div');
-    msgDiv.classList.add('message', side);
+    msgDiv.className = `message ${side}`;
     msgDiv.innerText = text;
     chatWindow.appendChild(msgDiv);
     chatWindow.scrollTop = chatWindow.scrollHeight;
 }
+
+function showTyping() {
+    const chatWindow = document.getElementById('chat-window');
+    const div = document.createElement('div');
+    div.id = 'typing';
+    div.className = 'message bot';
+    div.innerHTML = "<span class='dot'>.</span><span class='dot'>.</span><span class='dot'>.</span>";
+    chatWindow.appendChild(div);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+function hideTyping() {
+    const t = document.getElementById('typing');
+    if (t) t.remove();
+}
+
+document.getElementById('user-input').addEventListener('keypress', (e) => { if (e.key === 'Enter') sendMessage(); });
