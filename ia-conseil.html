@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Wine - Vina IA</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+    <style>
+        .chat-container {
+            max-width: 600px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 550px;
+        }
+        #chat-window {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #fdfaf5;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .message {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 20px;
+            font-family: 'Playfair Display', serif;
+        }
+        .bot { background: #4a0404; color: white; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .user { background: #eee; color: #333; align-self: flex-end; border-bottom-right-radius: 2px; }
+        
+        .chat-input-area {
+            display: flex;
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #eee;
+        }
+        #user-input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            outline: none;
+            font-size: 1rem;
+        }
+        .send-btn, .quiz-launch-btn {
+            background: #4a0404;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .quiz-launch-btn {
+            background: #c5a059;
+            margin: 10px auto;
+            display: block;
+            font-weight: bold;
+        }
+        /* Animation pour les points de suspension */
+        .dot { animation: blink 1s infinite; margin: 0 2px; }
+        @keyframes blink { 0% { opacity: 0.2; } 50% { opacity: 1; } 100% { opacity: 0.2; } }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee;">
+            <div class="logo" style="color: #4a0404; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: bold;">TO WINE</div>
+            <ul style="display: flex; list-style: none; gap: 25px; margin: 0; padding: 0;">
+                <li><a href="index.html" style="text-decoration: none; color: #666;">Accueil</a></li>
+                <li><a href="fiche.html" style="text-decoration: none; color: #666;">Catalogue</a></li>
+                <li><a href="articles.html" style="text-decoration: none; color: #666;">Connaissances</a></li>
+                <li><a href="ia-conseil.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #c5a059; padding-bottom: 5px;">Sommelier IA</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <div style="text-align: center; margin-top: 30px;">
+            <h1 style="font-family: 'Cinzel'; color: #4a0404; margin-bottom: 5px;">Vina, votre Sommelier IA</h1>
+            <p style="font-family: 'Playfair Display'; font-style: italic;">"Le vin est une conversation, laissez-moi la guider."</p>
+            <button class="quiz-launch-btn" onclick="startQuiz()">🍷 Lancer le Quiz Profil</button>
+        </div>
+
+        <div class="chat-container">
+            <div id="chat-window">
+                <div class="message bot">Bonjour ! Je suis **Vina**. Posez-moi une question ou cliquez sur le bouton doré pour trouver votre vin idéal !</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="user-input" placeholder="Parlez avec Vina...">
+                <button class="send-btn" onclick="sendMessage()">Envoyer</button>
+            </div>
+        </div>
+    </main>
+
+    <script src="winebot.js"></script>
+</body>
+</html>

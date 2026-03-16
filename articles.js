@@ -36,7 +36,6 @@ function startAutoScroll() {
 // 3. Ouverture de la fenêtre d'infos (Modal) avec TAILLE D'IMAGE RÉDUITE
 function openArticle(id) {
     if (typeof knowledgeBase === 'undefined') return;
-
     const article = knowledgeBase.find(a => a.id === id);
     if (!article) return;
 
