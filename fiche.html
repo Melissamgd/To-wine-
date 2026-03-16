@@ -4,67 +4,146 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Catalogue - To Wine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="stylefiche.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-
-    <header>
- <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000;">
-    <div class="logo" style="color: #4a0404; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">TO WINE</div>
-<ul style="display: flex; list-style: none; gap: 25px; margin: 0; padding: 0;">
-    <li><a href="index.html" style="text-decoration: none; color: #666;">Accueil</a></li>
-    <li><a href="fiche.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #c5a059; padding-bottom: 5px;">Catalogue</a></li>
-    <li><a href="articles.html" style="text-decoration: none; color: #666;">Connaissances</a></li>
-    <li><a href="ia-conseil.html" style="text-decoration: none; color: #666;">Sommelier IA</a></li>
-</ul>
-        </nav>
-    </header>
-
-    <main>
-        <section class="catalogue-container" style="padding: 50px 5%;">
-            <h1 style="text-align: center; font-family: 'Playfair Display', serif; color: #4a0404; margin-bottom: 40px;">Notre Sélection de Vins</h1>
-            
-            <div id="wine-grid" class="wine-grid">
-                </div>
-        </section>
-    </main>
-
-    <footer style="background: #4a0404; color: white; padding: 40px; text-align: center;">
-        <p>&copy; 2026 To Wine - Expertise & Passion</p>
-    </footer>
-
-    <script src="script.js"></script>
-
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carte des Cavistes - Paris</title>
-    
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
+
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; background-color: #fdfcfc; }
-        h1 { color: #800020; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        
-        /* La carte prend une grande partie de l'écran */
+        /* BASE & RESET */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #fdfcfc; 
+            color: #333;
+        }
+
+        /* LIMITATION LARGEUR POUR ORDINATEUR */
+        .container-desktop {
+            max-width: 1200px; /* Largeur idéale pour un catalogue sur ordi */
+            margin: 0 auto;    /* Centre tout le contenu */
+            padding: 0 20px;
+        }
+
+        /* NAVIGATION STYLE PREMIUM */
+        nav {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            color: #4a0404;
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px; /* Plus d'espace sur ordi */
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a.active {
+            color: #4a0404;
+            font-weight: bold;
+            border-bottom: 2px solid #c5a059;
+            padding-bottom: 5px;
+        }
+
+        /* SECTION TITRE */
+        h1 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            color: #4a0404;
+            font-size: 2.5rem;
+            margin: 60px 0;
+        }
+
+        /* LA CARTE (MAP) VERSION DESKTOP */
         #map { 
-            height: 500px; 
-            width: 90%; 
-            max-width: 1100px; 
-            margin: 20px 0; 
-            border-radius: 15px; 
-            border: 3px solid #800020; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+            height: 600px; /* Plus haut sur ordi */
+            width: 100%;
+            border-radius: 15px; /* Moins arrondi pour faire plus pro */
+            border: 1px solid #ddd;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            margin-bottom: 50px;
+        }
+
+        footer {
+            background: #4a0404;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 100px;
         }
     </style>
 </head>
 <body>
 
-   
+    <header>
+        <nav>
+            <div class="container-desktop nav-content">
+                <div class="logo">TO WINE</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="fiche.html" class="active">Catalogue</a></li>
+                    <li><a href="articles.html">Connaissances</a></li>
+                    <li><a href="ia-conseil.html">Sommelier IA</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container-desktop">
+        
+        <section class="catalogue-section">
+            <h1>Notre Sélection de Vins</h1>
+            
+            <div id="wine-grid" class="wine-grid">
+                </div>
+        </section>
+
+        <section class="map-section">
+            <h1 style="font-size: 1.8rem;">Trouver un Caviste à Paris</h1>
+            <div id="map"></div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container-desktop">
+            <p style="letter-spacing: 2px;">&copy; 2026 TO WINE</p>
+            <p style="font-weight: 300; opacity: 0.7;">Expertise & Passion • Mentions Légales</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>
