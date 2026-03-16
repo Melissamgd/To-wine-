@@ -2,18 +2,61 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détail Article - To Wine</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
     <style>
-        #full-article { max-width: 800px; margin: 50px auto; padding: 40px; background: white; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-family: sans-serif; }
-        .article-img { width: 100%; height: 350px; object-fit: cover; border-radius: 10px; margin-bottom: 20px; }
-        .back-link { display: inline-block; margin-bottom: 20px; color: #4a0404; text-decoration: none; font-weight: bold; }
+        body { background-color: #fdfaf5; margin: 0; }
+        
+        #full-article { 
+            max-width: 900px; 
+            margin: 50px auto; 
+            padding: 40px; 
+            background: white; 
+            border-radius: 15px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+            font-family: 'Playfair Display', serif; 
+        }
+
+        .article-img { 
+            width: 100%; 
+            max-height: 450px; 
+            object-fit: cover; 
+            border-radius: 10px; 
+            margin-bottom: 30px; 
+            border: 1px solid #eee;
+        }
+
+        .back-link { 
+            display: inline-block; 
+            margin-bottom: 30px; 
+            color: #4a0404; 
+            text-decoration: none; 
+            font-family: 'Cinzel', serif;
+            font-weight: bold; 
+            transition: 0.3s;
+        }
+        
+        .back-link:hover { color: #c5a059; transform: translateX(-5px); }
+
+        /* Styles pour le contenu dynamique */
+        .article-body h2, .article-body h3 { font-family: 'Cinzel', serif; color: #4a0404; margin-top: 30px; }
+        .article-body h4 { color: #c5a059; font-family: 'Cinzel', serif; margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 5px; }
+        .article-body p { line-height: 1.8; color: #333; font-size: 1.1rem; text-align: justify; }
+        .article-body ul { padding-left: 20px; }
+        .article-body li { margin-bottom: 10px; line-height: 1.6; }
+        .article-body strong { color: #4a0404; }
     </style>
 </head>
 <body>
     <main id="full-article">
-        <a href="articles.html" class="back-link">← Retour aux articles</a>
-        <div id="content-area">Chargement...</div>
+        <a href="articles.html" class="back-link">← Retour à la cave aux articles</a>
+        <div id="content-area">
+            <div style="text-align:center; padding: 50px;">
+                <p>Chargement des secrets de la vigne...</p>
+            </div>
+        </div>
     </main>
 
     <script src="articles_data.js"></script>
@@ -26,13 +69,22 @@
 
             if (art) {
                 area.innerHTML = `
-                    <img src="${art.image}" class="article-img">
-                    <h1 style="color:#4a0404; margin-top:0;">${art.title}</h1>
-                    <p style="color:#d4af37; text-transform:uppercase; letter-spacing:1px;"><b>${art.category}</b></p>
-                    <div style="line-height:1.6; font-size:1.1rem;">${art.content}</div>
+                    <img src="${art.image}" class="article-img" alt="${art.title}">
+                    <p style="color:#c5a059; text-transform:uppercase; letter-spacing:2px; font-family:'Cinzel'; margin-bottom:10px;">
+                        <b>${art.category}</b>
+                    </p>
+                    <h1 style="color:#4a0404; margin-top:0; font-family:'Cinzel'; font-size: 2.5rem;">${art.title}</h1>
+                    <hr style="border:0; border-top:1px solid #f2e8d5; margin: 30px 0;">
+                    <div class="article-body">${art.content}</div>
                 `;
             } else {
-                area.innerHTML = "<h1>Article introuvable</h1><p>Vérifiez que l'ID dans l'URL correspond bien à la base de données.</p>";
+                area.innerHTML = `
+                    <div style="text-align:center; padding:50px;">
+                        <h1 style="font-family:'Cinzel'; color:#4a0404;">Hélas, cette bouteille est vide</h1>
+                        <p>L'article que vous cherchez n'existe pas ou a été déplacé.</p>
+                        <a href="articles.html" class="back-link">Retour aux articles</a>
+                    </div>
+                `;
             }
         };
     </script>
