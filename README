@@ -1,1 +1,16 @@
-à voir pour l'application
+ 🍷 To Wine - Votre Cave Digitale
+
+Bienvenue sur **To Wine**, une plateforme élégante pour découvrir l'univers du vin.
+
+🌟 Points forts
+- Catalogue : Une sélection de crus avec fiches détaillées.
+- Guides :Un carrousel interactif pour apprendre les bases (accords, conservation, lexique).
+- Vina (IA) : Une sommelière virtuelle qui vous propose un **Quiz Profil** pour trouver votre vin idéal.
+
+ 🛠️ Technique
+- Langages :HTML, CSS, JavaScript (Pur).
+- Données : Fichiers JSON pour le catalogue et les articles.
+- Design : Focus sur une expérience utilisateur fluide et premium.
+
+---
+"Le vin est une conversation, laissez-nous la guider."*
