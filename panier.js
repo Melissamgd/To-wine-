@@ -1,50 +1,79 @@
 // panier.js
 
+let panier = []; // On utilise un tableau pour stocker les objets {nom, prix}
 let total = 0;
 
 /**
- * Ajoute un article au panier et met à jour l'affichage
+ * Ajoute un article au panier
  */
 function ajouterAuPanier(nom, prix) {
-    // 1. Afficher le panier flottant
-    const panier = document.getElementById('panier-flottant');
-    if (panier) panier.style.display = 'block';
+    // 1. On ajoute l'objet au tableau
+    panier.push({ nom: nom, prix: prix });
+    
+    // 2. On affiche le panier s'il était caché
+    const panierVisuel = document.getElementById('panier-flottant');
+    if (panierVisuel) panierVisuel.style.display = 'block';
 
-    // 2. Mettre à jour le montant total
-    total += prix;
-    const totalPrixEl = document.getElementById('total-prix');
-    if (totalPrixEl) totalPrixEl.innerText = total;
-
-    // 3. Ajouter l'élément visuel à la liste
-    const liste = document.getElementById('items-liste');
-    if (liste) {
-        const divArticle = document.createElement('div');
-        divArticle.className = 'panier-item';
-        divArticle.innerHTML = `
-            <span>${nom}</span>
-            <span>${prix}€</span>
-        `;
-        liste.appendChild(divArticle);
-    }
+    // 3. On rafraîchit l'affichage
+    updateDisplay();
 }
 
 /**
- * Simule la validation de la commande
+ * Supprime un article spécifique via son index dans le tableau
  */
-function validerCommande() {
-    if (total === 0) {
-        alert("Votre cave est vide ! Sélectionnez quelques crus avant de valider.");
-    } else {
-        alert(`Commande validée pour un montant de ${total}€. Merci de votre confiance chez To Wine.`);
-        // Optionnel : vider la page après validation
-        // window.location.reload();
+function supprimerDuPanier(index) {
+    // On retire l'élément du tableau grâce à son index
+    panier.splice(index, 1);
+    
+    // Si le panier est vide, on peut choisir de le cacher
+    if (panier.length === 0) {
+        document.getElementById('panier-flottant').style.display = 'none';
     }
+
+    // On rafraîchit l'affichage
+    updateDisplay();
 }
 
-// On attache l'événement au bouton de validation une fois le DOM chargé
-document.addEventListener('DOMContentLoaded', () => {
-    const btnValider = document.getElementById('btn-valider');
-    if (btnValider) {
-        btnValider.onclick = validerCommande;
+/**
+ * Met à jour le HTML du panier et le total
+ */
+function updateDisplay() {
+    const liste = document.getElementById('items-liste');
+    const totalPrixEl = document.getElementById('total-prix');
+    
+    // On vide la liste actuelle avant de la reconstruire
+    liste.innerHTML = "";
+    total = 0;
+
+    // On parcourt le tableau pour recréer les lignes
+    panier.forEach((article, index) => {
+        total += article.prix;
+        
+        const divArticle = document.createElement('div');
+        divArticle.className = 'panier-item';
+        divArticle.style.display = 'flex';
+        divArticle.style.justifyContent = 'space-between';
+        divArticle.style.alignItems = 'center';
+        divArticle.style.marginBottom = '10px';
+
+        divArticle.innerHTML = `
+            <span>${article.nom} (${article.prix}€)</span>
+            <button onclick="supprimerDuPanier(${index})" style="background:none; border:none; color:#4a0404; cursor:pointer; font-weight:bold; font-size:1.2rem; margin-left:10px;">&times;</button>
+        `;
+        liste.appendChild(divArticle);
+    });
+
+    // Mise à jour du total
+    if (totalPrixEl) totalPrixEl.innerText = total;
+}
+
+/**
+ * Validation finale
+ */
+function validerCommande() {
+    if (panier.length === 0) {
+        alert("Votre cave est vide !");
+    } else {
+        alert(`Commande validée pour ${total}€. Vos bouteilles arrivent !`);
     }
-});
+}
