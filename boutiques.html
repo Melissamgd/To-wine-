@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Wine - Nos Cavistes</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #ffffff; margin: 0; font-family: 'Playfair Display', serif; color: #333; }
+
+        nav ul li a {
+            font-family: 'Cinzel', serif !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .container-carte {
+            padding: 60px 5%;
+            text-align: center;
+            background: #fff;
+        }
+
+        .map-wrapper {
+            margin-top: 40px;
+            border: 1px solid #eee;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000;">
+        <div class="logo" style="color: #4a0404; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">TO WINE</div>
+        <ul style="display: flex; list-style: none; gap: 25px; margin: 0; padding: 0; align-items: center;">
+            <li><a href="index.html" style="text-decoration: none; color: #666; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Accueil</a></li>
+            
+            <li><a href="fiche.html" style="text-decoration: none; color: #666; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Catalogue</a></li>
+            
+            <li><a href="articles.html" style="text-decoration: none; color: #666; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Connaissances</a></li>
+            
+            <li><a href="ia-conseil.html" style="text-decoration: none; color: #666; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Sommelier IA</a></li>
+            
+            <li><a href="boutiques.html" style="text-decoration: none; color: #4a0404; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; font-weight: bold; border-bottom: 2px solid #c5a059; padding-bottom: 5px;">Nos Cavistes</a></li>
+            
+            <li><a href="achats.html" style="text-decoration: none; color: #666; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Commander</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main class="container-carte">
+    <span style="font-family: 'Cinzel', serif; color: #c5a059; letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem;">Sélection de prestige</span>
+    <h1 style="font-family: 'Cinzel', serif; color: #4a0404; font-size: 3rem; margin: 10px 0;">Nos Cavistes Partenaires</h1>
+    <p style="font-size: 1.1rem; color: #555; max-width: 700px; margin: 0 auto;">Retrouvez nos partenaires cavistes à Paris pour retirer vos commandes ou bénéficier de conseils personnalisés.</p>
+
+    <div class="map-wrapper">
+        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=1BKws7MjCBH8bK_cB46qPL-M4pgKWk8A&ehbc=2E312F&noprof=1" width="100%" height="500" style="border:none; border-radius: 10px;"></iframe>
+    </div>
+<div class="liste-adresses" style="margin-top: 60px; text-align: left; max-width: 1000px; margin-left: auto; margin-right: auto; padding-bottom: 50px;">
+        <h2 style="font-family: 'Cinzel', serif; color: #4a0404; border-bottom: 1px solid #c5a059; padding-bottom: 15px; text-align: center; margin-bottom: 40px;">Nos Établissements Partenaires</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            
+            <div class="card-caviste" style="border: 1px solid #eee; padding: 25px; border-radius: 8px; background: #fff; transition: 0.3s;">
+                <h3 style="font-family: 'Cinzel', serif; color: #4a0404; margin-top: 0; font-size: 1.1rem;">Les Caves de Taillevent</h3>
+                <p style="font-style: italic; color: #666; font-size: 0.9rem; line-height: 1.5;">Une collection légendaire de flacons rares et de grands crus classés.</p>
+                <p style="margin: 15px 0; font-size: 0.85rem;">📍 228 Faubourg Saint-Honoré, 75008 Paris</p>
+                <a href="https://www.google.com/maps/search/Les+Caves+de+Taillevent+Paris" target="_blank" style="color: #c5a059; text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">→ Itinéraire</a>
+            </div>
+
+            <div class="card-caviste" style="border: 1px solid #eee; padding: 25px; border-radius: 8px; background: #fff; transition: 0.3s;">
+                <h3 style="font-family: 'Cinzel', serif; color: #4a0404; margin-top: 0; font-size: 1.1rem;">Cave Péret</h3>
+                <p style="font-style: italic; color: #666; font-size: 0.9rem; line-height: 1.5;">Maison familiale historique offrant une sélection rigoureuse de vignerons indépendants.</p>
+                <p style="margin: 15px 0; font-size: 0.85rem;">📍 6 Rue Daguerre, 75014 Paris</p>
+                <a href="https://www.google.com/maps/search/Cave+Péret+Paris" target="_blank" style="color: #c5a059; text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">→ Itinéraire</a>
+            </div>
+
+            <div class="card-caviste" style="border: 1px solid #eee; padding: 25px; border-radius: 8px; background: #fff; transition: 0.3s;">
+                <h3 style="font-family: 'Cinzel', serif; color: #4a0404; margin-top: 0; font-size: 1.1rem;">LAVINIA</h3>
+                <p style="font-style: italic; color: #666; font-size: 0.9rem; line-height: 1.5;">Un concept moderne et international dédié à la culture du vin.</p>
+                <p style="margin: 15px 0; font-size: 0.85rem;">📍 22 Avenue Victor Hugo, 75116 Paris</p>
+                <a href="https://www.google.com/maps/search/LAVINIA+Paris" target="_blank" style="color: #c5a059; text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">→ Itinéraire</a>
+            </div>
+
+            <div class="card-caviste" style="border: 1px solid #eee; padding: 25px; border-radius: 8px; background: #fff; transition: 0.3s;">
+                <h3 style="font-family: 'Cinzel', serif; color: #4a0404; margin-top: 0; font-size: 1.1rem;">La Cave de Joël Robuchon</h3>
+                <p style="font-style: italic; color: #666; font-size: 0.9rem; line-height: 1.5;">L'excellence gastronomique déclinée dans une cave d'exception.</p>
+                <p style="margin: 15px 0; font-size: 0.85rem;">📍 3 Rue Paul Manship, 75015 Paris</p>
+                <a href="https://www.google.com/maps/search/La+Cave+de+Joël+Robuchon+Paris" target="_blank" style="color: #c5a059; text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">→ Itinéraire</a>
+            </div>
+
+            <div class="card-caviste" style="border: 1px solid #eee; padding: 25px; border-radius: 8px; background: #fff; transition: 0.3s;">
+                <h3 style="font-family: 'Cinzel', serif; color: #4a0404; margin-top: 0; font-size: 1.1rem;">Legrand Filles & Fils</h3>
+                <p style="font-style: italic; color: #666; font-size: 0.9rem; line-height: 1.5;">Une institution mythique dans la Galerie Vivienne pour les amoureux du vin.</p>
+                <p style="margin: 15px 0; font-size: 0.85rem;">📍 1 Rue de la Banque, 75002 Paris</p>
+                <a href="https://www.google.com/maps/search/Legrand+Filles+et+Fils+Paris" target="_blank" style="color: #c5a059; text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">→ Itinéraire</a>
+            </div>
+
+            <div class="card-caviste" style="border: 1px solid #eee; padding: 25px; border-radius: 8px; background: #fff; transition: 0.3s;">
+                <h3 style="font-family: 'Cinzel', serif; color: #4a0404; margin-top: 0; font-size: 1.1rem;">Cave Pétillance</h3>
+                <p style="font-style: italic; color: #666; font-size: 0.9rem; line-height: 1.5;">Le temple parisien dédié exclusivement aux Champagnes de vignerons.</p>
+                <p style="margin: 15px 0; font-size: 0.85rem;">📍 19 Rue Condorcet, 75009 Paris</p>
+                <a href="https://www.google.com/maps/search/Cave+Pétillance+Paris" target="_blank" style="color: #c5a059; text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">→ Itinéraire</a>
+            </div>
+
+            <div class="card-caviste" style="border: 1px solid #eee; padding: 25px; border-radius: 8px; background: #fff; transition: 0.3s;">
+                <h3 style="font-family: 'Cinzel', serif; color: #4a0404; margin-top: 0; font-size: 1.1rem;">La Cave du Marcande</h3>
+                <p style="font-style: italic; color: #666; font-size: 0.9rem; line-height: 1.5;">Une adresse de quartier confidentielle avec des pépites dénichées avec passion.</p>
+                <p style="margin: 15px 0; font-size: 0.85rem;">📍 14 Rue de Miromesnil, 75008 Paris</p>
+                <a href="https://www.google.com/maps/search/La+Cave+du+Marcande+Paris" target="_blank" style="color: #c5a059; text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">→ Itinéraire</a>
+            </div>
+
+            <div class="card-caviste" style="border: 1px solid #eee; padding: 25px; border-radius: 8px; background: #fff; transition: 0.3s;">
+                <h3 style="font-family: 'Cinzel', serif; color: #4a0404; margin-top: 0; font-size: 1.1rem;">La Cave de La Petite Périgourdine</h3>
+                <p style="font-style: italic; color: #666; font-size: 0.9rem; line-height: 1.5;">L'alliance du terroir et du vin dans une ambiance chaleureuse et authentique.</p>
+                <p style="margin: 15px 0; font-size: 0.85rem;">📍 39 Rue des Écoles, 75005 Paris</p>
+                <a href="https://www.google.com/maps/search/La+Petite+Périgourdine+Paris" target="_blank" style="color: #c5a059; text-decoration: none; font-family: 'Cinzel', serif; font-size: 0.75rem; font-weight: bold; letter-spacing: 1px;">→ Itinéraire</a>
+            </div>
+
+        </div>
+    </div>
+</main>
+
+</body>
+</html>

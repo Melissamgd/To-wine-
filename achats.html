@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Wine - Achats</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styleachats.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+
+    <header>
+    <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000;">
+        <div class="logo" style="color: #4a0404; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">TO WINE</div>
+        <ul style="display: flex; list-style: none; gap: 25px; margin: 0; padding: 0; align-items: center;">
+            <li><a href="index.html" style="text-decoration: none; color: #666; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Accueil</a></li>
+            
+            <li><a href="fiche.html" style="text-decoration: none; color: #666; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Catalogue</a></li>
+            
+            <li><a href="articles.html" style="text-decoration: none; color: #666; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Connaissances</a></li>
+            
+            <li><a href="ia-conseil.html" style="text-decoration: none; color: #666; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Sommelier IA</a></li>
+            
+            <li><a href="boutiques.html" style="text-decoration: none; color: #666; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; transition: 0.3s;">Nos Cavistes</a></li>
+            
+            <li><a href="achats.html" style="text-decoration: none; color: #4a0404; font-family: 'Cinzel', serif; text-transform: uppercase; font-size: 0.85rem; font-weight: bold; border-bottom: 2px solid #c5a059; padding-bottom: 5px;">Commander</a></li>
+        </ul>
+    </nav>
+</header>
+
+    <aside id="panier-flottant">
+        <h3 style="font-family: 'Cinzel', serif; color: #4a0404; margin-top: 0; border-bottom: 1px solid #c5a059; padding-bottom: 10px;">Votre Cave</h3>
+        <div id="items-liste">
+            </div>
+        <div style="margin-top: 20px; padding-top: 10px; border-top: 2px solid #4a0404;">
+            <p style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1.1rem;">
+                <span>Total</span>
+                <span><span id="total-prix">0</span>€</span>
+            </p>
+        </div>
+        <button class="btn-commander" id="btn-valider" onclick="validerCommande()">Finaliser l'achat</button>
+    </aside>
+
+    <main style="padding: 60px 5%; text-align: center;">
+        <span style="font-family: 'Cinzel', serif; color: #c5a059; letter-spacing: 5px; text-transform: uppercase; font-size: 0.9rem;">Sélection Exclusive</span>
+        <h1 style="font-family: 'Cinzel', serif; color: #4a0404; font-size: 3.5rem; margin: 15px 0;">La Cave en Ligne</h1>
+        
+        <div id="vins-liste" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1200px; margin: 40px auto;">
+            <p>Dégustation des données en cours...</p>
+        </div>
+    </main>
+
+    <script src="panier.js"></script>
+    <script src="boutique.js"></script>
+</body>
+</html>

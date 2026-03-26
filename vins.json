@@ -7,9 +7,15 @@
     "annee": 2015,
     "cepage": "Merlot",
     "type": "Rouge",
+    "image": "https://www.lacaveduchateau.com/media/catalog/product/cache/2cec7e284ca5c0096479a6ef227c2a18/_/i/_images_articles_vpetrpomerc15b7_vpetrpomerc15b7-0001.png",
     "accords_mets": "Viandes rouges raffinées, truffes",
     "description": "Un vin légendaire d'une concentration exceptionnelle, aux notes de fruits noirs et d'épices.",
-    "prix_estime": 3500
+    "prix_estime": 3500,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 2,
@@ -19,9 +25,15 @@
     "annee": 2018,
     "cepage": "Pinot Noir",
     "type": "Rouge",
+    "image": "https://media-viniou.com/wineimage/appellation_v2/france/bourgogne/romanee-conti/bottle-75-vins-rouge.png",
     "accords_mets": "Gibier à plumes, plats aux morilles",
     "description": "L'élégance absolue. Arômes complexes de rose fanée et de sous-bois.",
-    "prix_estime": 3500
+    "prix_estime": 3500,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 3,
@@ -31,9 +43,15 @@
     "annee": 2017,
     "cepage": "Sémillon, Sauvignon Blanc",
     "type": "Blanc (Liquoreux)",
+    "image": "https://www.lacaveduchateau.com/media/catalog/product/cache/2cec7e284ca5c0096479a6ef227c2a18/_/i/_images_articles_vyquesautbc17b7_vyquesautbc17b7.png",
     "accords_mets": "Foie gras, desserts aux abricots, roquefort",
     "description": "Le plus grand vin liquoreux au monde. Notes de miel, d'orange confite et de safran.",
-    "prix_estime": 2500
+    "prix_estime": 2500,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 4,
@@ -43,9 +61,15 @@
     "annee": 2020,
     "cepage": "Chardonnay",
     "type": "Blanc",
+    "image": "https://media-viniou.com/wineimage/appellation_v2/france/bourgogne/meursault/bottle-75-vins-blanc.png",
     "accords_mets": "Poissons fins, volailles à la crème",
     "description": "Riche et gourmand. Arômes de noisette, de beurre frais et de fleurs blanches.",
-    "prix_estime": 85
+    "prix_estime": 85,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 5,
@@ -55,9 +79,15 @@
     "annee": 2019,
     "cepage": "Cabernet Sauvignon",
     "type": "Rouge",
+    "image": "https://www.bighammerwines.com/cdn/shop/products/2019ScreamingEagleCabernetSauvignonNapaValley.jpg?v=1664298074",
     "accords_mets": "Pièce de boeuf grillée, agneau",
     "description": "Un vin culte californien, puissant, soyeux avec une finale interminable.",
-    "prix_estime": 4000
+    "prix_estime": 4000,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 6,
@@ -67,9 +97,15 @@
     "annee": 2012,
     "cepage": "Tempranillo, Cabernet Sauvignon",
     "type": "Rouge",
+    "image": "https://www.lecarredesvins.com/30342-large_default/vega-sicilia-unico-2012.jpg",
     "accords_mets": "Côte de boeuf, fromages affinés",
     "description": "Le fleuron de l'Espagne. Un équilibre parfait entre puissance et finesse.",
-    "prix_estime": 450
+    "prix_estime": 450,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 7,
@@ -79,9 +115,15 @@
     "annee": 2016,
     "cepage": "Shiraz",
     "type": "Rouge",
+    "image": "https://www.vinha.fr/wp-content/uploads/2022/04/106079.png",
     "accords_mets": "Gibier, viandes en sauce",
     "description": "L'icône australienne. Un vin massif, riche en arômes de fruits noirs.",
-    "prix_estime": 600
+    "prix_estime": 600,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 8,
@@ -91,9 +133,15 @@
     "annee": 2018,
     "cepage": "Cabernet Sauvignon, Cabernet Franc",
     "type": "Rouge",
+    "image": "https://media.cdnws.com/_i/44805/5385/1068/88/sassicaia-tenuta-san-guido.jpeg",
     "accords_mets": "Pâtes à la truffe, viandes grillées",
     "description": "Le premier 'Super Toscan'. Un vin d'une structure et d'une noblesse incomparables.",
-    "prix_estime": 300
+    "prix_estime": 300,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 9,
@@ -103,9 +151,15 @@
     "annee": 2022,
     "cepage": "Sauvignon Blanc",
     "type": "Blanc",
+    "image": "https://lacartedubongout.com/1995-large_default/cloudy-bay-sauvignon-blanc-2022.jpg",
     "accords_mets": "Fruits de mer, asperges, cuisine asiatique",
     "description": "Vif et aromatique. Notes explosives de fruit de la passion et de citron vert.",
-    "prix_estime": 35
+    "prix_estime": 35,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 10,
@@ -115,9 +169,15 @@
     "annee": 2019,
     "cepage": "Grenache, Syrah, Mourvèdre",
     "type": "Rouge",
+    "image": "https://www.lebendigeweine.de/wp-content/uploads/2025/03/la-nerthe-chateauneuf-du-pape-rouge-aoc-2019_1_square_321bfebc.png",
     "accords_mets": "Daube provençale, agneau aux herbes",
     "description": "Chaleureux et généreux. Arômes de fruits rouges mûrs et de garrigue.",
-    "prix_estime": 55
+    "prix_estime": 55,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 11,
@@ -127,9 +187,15 @@
     "annee": 2017,
     "cepage": "Bordeaux Blend",
     "type": "Rouge",
+    "image": "https://buywinenow.com/wp-content/uploads/2024/02/Opus-One-2017.png",
     "accords_mets": "Filet de boeuf, canard rôti",
     "description": "Une collaboration franco-américaine. Un vin harmonieux aux notes de mûre.",
-    "prix_estime": 420
+    "prix_estime": 420,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   },
   {
     "id": 12,
@@ -139,8 +205,14 @@
     "annee": 2022,
     "cepage": "Grenache, Cinsault, Rolle",
     "type": "Rosé",
+    "image": "https://amorivini.com/wp-content/uploads/2025/02/Whispering-Angel-2023-jero.png",
     "accords_mets": "Salades estivales, apéritifs, sushis",
     "description": "La référence mondiale du rosé de Provence. Frais, sec et élégant.",
-    "prix_estime": 22
+    "prix_estime": 22,
+    "formats": {
+      "demie": 0.6,
+      "bouteille": 1,
+      "magnum": 2.1
+    }
   }
 ]
