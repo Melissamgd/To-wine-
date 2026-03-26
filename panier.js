@@ -5,12 +5,22 @@ let panier = JSON.parse(localStorage.getItem('panier_towine')) || [];
 document.addEventListener('DOMContentLoaded', updateDisplay);
 
 function ajouterAuPanier(nom, prix) {
-    panier.push({ nom: nom, prix: prix });
+    const articleExistant = panier.find(item => item.nom === nom);
+
+    if (articleExistant) {
+        articleExistant.quantite += 1;
+    } else {
+        panier.push({ nom: nom, prix: prix, quantite: 1 });
+    }
     sauvegarderEtActualiser();
 }
 
 function supprimerDuPanier(index) {
-    panier.splice(index, 1);
+    if (panier[index].quantite > 1) {
+        panier[index].quantite -= 1;
+    } else {
+        panier.splice(index, 1);
+    }
     sauvegarderEtActualiser();
 }
 
@@ -24,26 +34,34 @@ function updateDisplay() {
     const totalPrixEl = document.getElementById('total-prix');
     const panierVisuel = document.getElementById('panier-flottant');
     
-    // Si on est sur une page sans panier (ex: index), on ne fait rien
     if (!liste || !totalPrixEl) return;
 
     liste.innerHTML = "";
-    let total = 0;
+    let totalProduits = 0;
 
     panier.forEach((article, index) => {
-        total += article.prix;
+        const prixLigne = article.prix * article.quantite;
+        totalProduits += prixLigne;
+
         const div = document.createElement('div');
-        div.style = "display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;";
+        div.style = "display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px;";
+        
         div.innerHTML = `
-            <span>${article.nom}</span>
-            <span>${article.prix}€ <button onclick="supprimerDuPanier(${index})" style="color:red; background:none; border:none; cursor:pointer; font-weight:bold;">&times;</button></span>
+            <div style="flex: 1;">
+                <span style="font-weight: bold;">${article.quantite}x</span> ${article.nom}
+                <div style="font-size: 0.8rem; color: #666;">${article.prix}€ l'unité</div>
+            </div>
+            <div style="font-weight: bold; margin-left: 10px;">${prixLigne}€</div>
+            <button onclick="supprimerDuPanier(${index})" style="color:#4a0404; background:none; border:none; cursor:pointer; font-size: 1.2rem; margin-left: 10px;">&times;</button>
         `;
         liste.appendChild(div);
     });
 
-    totalPrixEl.innerText = total;
+    const optionLivraison = document.querySelector('input[name="livraison"]:checked');
+    const fraisLivraison = optionLivraison ? parseInt(optionLivraison.value) : 0;
 
-    // Affiche le panier seulement s'il y a des articles
+    totalPrixEl.innerText = totalProduits + fraisLivraison;
+
     if (panierVisuel) {
         panierVisuel.style.display = panier.length > 0 ? 'block' : 'none';
     }
