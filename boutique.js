@@ -15,28 +15,32 @@ document.addEventListener('DOMContentLoaded', () => {
     const article = document.createElement('article');
     article.className = "produit-card";
     
-    const icone = vin.type.includes("Rouge") ? "🍷" : "🍾";
-
-    
+    // 1. On crée le contenu textuel et l'IMAGE
     article.innerHTML = `
-        <div style="font-size: 4rem; margin-bottom: 20px;">${icone}</div>
+        <div style="height: 250px; display: flex; align-items: center; justify-content: center; margin-bottom: 20px; overflow: hidden;">
+            <img src="${vin.image}" alt="${vin.nom}" style="max-height: 100%; max-width: 100%; object-fit: contain;">
+        </div>
+        
         <div style="font-size: 0.75rem; color: #c5a059; text-transform: uppercase;">${vin.region}</div>
-        <h3 style="font-family: 'Cinzel'; color: #4a0404; margin: 10px 0;">${vin.nom} ${vin.annee}</h3>
+        <h3 style="font-family: 'Cinzel'; color: #4a0404; margin: 10px 0; font-size: 1.2rem; height: 45px; overflow: hidden;">
+            ${vin.nom} ${vin.annee}
+        </h3>
         <p style="font-size: 0.8rem; color: #666; height: 45px; overflow: hidden; margin-bottom: 15px;">${vin.description}</p>
-        <p style="color: #c5a059; font-weight: bold; font-size: 1.4rem; margin-bottom: 15px;">${vin.prix_estime}€</p>
+        <p style="color: #c5a059; font-weight: bold; font-size: 1.6rem; margin-bottom: 15px;">${vin.prix_estime}€</p>
     `;
 
-    
+    // 2. On crée le bouton séparément (ton code robuste actuel)
     const bouton = document.createElement('button');
     bouton.className = "btn-ajout-panier";
     bouton.innerText = "Ajouter au panier";
     
-    
+    // Utilisation de la fonction fléchée pour le contexte
     bouton.onclick = () => {
+        // Cette fonction vient de panier.js
         ajouterAuPanier(vin.nom, vin.prix_estime);
     };
 
-    
+    // 3. On assemble
     article.appendChild(bouton);
     conteneurVins.appendChild(article);
 });
