@@ -13,14 +13,31 @@ function ajouterAuPanier(nom, prix) {
 }
 
 function modifierQuantite(index, changement) {
-    if (panier[index]) {
-        panier[index].quantite += changement;
+    let item = panier[index];
+    if (!item) return;
 
-        if (panier[index].quantite <= 0) {
-            panier.splice(index, 1);
+    if (changement > 0) {
+        // --- BOUTON + ---
+        if (item.quantite < 6) {
+            item.quantite += 1;
+        } else {
+            item.quantite += 6;
         }
-        sauvegarderEtActualiser();
+    } else {
+        // --- BOUTON - ---
+        if (item.quantite <= 6) {
+            item.quantite -= 1;
+        } else {
+            item.quantite -= 6;
+        }
     }
+
+    // Suppression si on tombe à 0
+    if (item.quantite <= 0) {
+        panier.splice(index, 1);
+    }
+
+    sauvegarderEtActualiser(); // Ta fonction qui fait le localStorage et l'updateDisplay
 }
 
 function sauvegarderEtActualiser() {
