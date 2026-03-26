@@ -95,3 +95,13 @@ function updateDisplay() {
         panierVisuel.style.display = panier.length > 0 ? 'block' : 'none';
     }
 }
+
+function validerCommande() {
+    if (panier.length === 0) {
+        alert("Votre panier est vide.");
+        return;
+    }
+
+    // Ouvre la page récapitulatif dans un nouvel onglet
+    window.open('recapitulatif.html', '_blank');
+}

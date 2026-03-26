@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>To Wine - Finalisation de la commande</title>
+    <link rel="stylesheet" href="style.css"> </head>
+<body style="background-color: #f9f6f2; padding: 50px;">
+    <div style="max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+        <h2 style="font-family: 'Cinzel'; color: #4a0404; text-align: center;">Votre Sélection</h2>
+        <hr>
+        
+        <div id="recap-liste" style="margin: 20px 0;"></div>
+
+        <div style="background: #f4f4f4; padding: 20px; border-radius: 5px;">
+            <h3>Choisissez votre mode de livraison</h3>
+            <form id="form-livraison">
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="frais" value="0" checked> 🚲 Vélo Cargo (Paris uniquement) - **Gratuit**
+                </label>
+                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                    <input type="radio" name="frais" value="15"> 📦 Colissimo Suivi - **15,00€**
+                </label>
+                <label style="display: block; cursor: pointer;">
+                    <input type="radio" name="frais" value="30"> ✈️ Express 24h - **30,00€**
+                </label>
+            </form>
+        </div>
+
+        <div style="text-align: right; margin-top: 20px; font-size: 1.5rem; font-weight: bold;">
+            Total Final : <span id="total-final">0</span>€
+        </div>
+
+        <button onclick="window.print()" style="width: 100%; padding: 15px; background: #4a0404; color: white; border: none; border-radius: 5px; cursor: pointer; margin-top: 20px; font-weight: bold;">
+            PAYER ET IMPRIMER MA FACTURE
+        </button>
+    </div>
+
+    <script>
+        // Petit script interne pour la page récap
+        const panier = JSON.parse(localStorage.getItem('panier_towine')) || [];
+        const recapListe = document.getElementById('recap-liste');
+        const totalFinalEl = document.getElementById('total-final');
+
+        function calculerRecap() {
+            let totalBrut = 0;
+            recapListe.innerHTML = "";
+
+            panier.forEach(item => {
+                const prixLigne = item.prix * item.quantite;
+                const remise = item.quantite >= 6 ? prixLigne * 0.05 : 0;
+                totalBrut += (prixLigne - remise);
+
+                recapListe.innerHTML += `
+                    <p style="display:flex; justify-content: space-between;">
+                        <span>${item.quantite}x ${item.nom}</span>
+                        <span>${(prixLigne - remise).toFixed(2)}€</span>
+                    </p>`;
+            });
+
+            const frais = parseInt(document.querySelector('input[name="frais"]:checked').value);
+            totalFinalEl.innerText = (totalBrut + frais).toFixed(2);
+        }
+
+        // Écouter les changements de radio boutons
+        document.getElementById('form-livraison').addEventListener('change', calculerRecap);
+        
+        // Lancer au chargement
+        calculerRecap();
+    </script>
+</body>
+</html>
