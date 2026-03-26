@@ -1,79 +1,50 @@
-// panier.js
+// Initialisation : on récupère le panier stocké ou on crée un vide
+let panier = JSON.parse(localStorage.getItem('panier_towine')) || [];
 
-let panier = []; // On utilise un tableau pour stocker les objets {nom, prix}
-let total = 0;
+// On rafraîchit l'affichage dès que la page est chargée
+document.addEventListener('DOMContentLoaded', updateDisplay);
 
-/**
- * Ajoute un article au panier
- */
 function ajouterAuPanier(nom, prix) {
-    // 1. On ajoute l'objet au tableau
     panier.push({ nom: nom, prix: prix });
-    
-    // 2. On affiche le panier s'il était caché
-    const panierVisuel = document.getElementById('panier-flottant');
-    if (panierVisuel) panierVisuel.style.display = 'block';
-
-    // 3. On rafraîchit l'affichage
-    updateDisplay();
+    sauvegarderEtActualiser();
 }
 
-/**
- * Supprime un article spécifique via son index dans le tableau
- */
 function supprimerDuPanier(index) {
-    // On retire l'élément du tableau grâce à son index
     panier.splice(index, 1);
-    
-    // Si le panier est vide, on peut choisir de le cacher
-    if (panier.length === 0) {
-        document.getElementById('panier-flottant').style.display = 'none';
-    }
+    sauvegarderEtActualiser();
+}
 
-    // On rafraîchit l'affichage
+function sauvegarderEtActualiser() {
+    localStorage.setItem('panier_towine', JSON.stringify(panier));
     updateDisplay();
 }
 
-/**
- * Met à jour le HTML du panier et le total
- */
 function updateDisplay() {
     const liste = document.getElementById('items-liste');
     const totalPrixEl = document.getElementById('total-prix');
+    const panierVisuel = document.getElementById('panier-flottant');
     
-    // On vide la liste actuelle avant de la reconstruire
-    liste.innerHTML = "";
-    total = 0;
+    // Si on est sur une page sans panier (ex: index), on ne fait rien
+    if (!liste || !totalPrixEl) return;
 
-    // On parcourt le tableau pour recréer les lignes
+    liste.innerHTML = "";
+    let total = 0;
+
     panier.forEach((article, index) => {
         total += article.prix;
-        
-        const divArticle = document.createElement('div');
-        divArticle.className = 'panier-item';
-        divArticle.style.display = 'flex';
-        divArticle.style.justifyContent = 'space-between';
-        divArticle.style.alignItems = 'center';
-        divArticle.style.marginBottom = '10px';
-
-        divArticle.innerHTML = `
-            <span>${article.nom} (${article.prix}€)</span>
-            <button onclick="supprimerDuPanier(${index})" style="background:none; border:none; color:#4a0404; cursor:pointer; font-weight:bold; font-size:1.2rem; margin-left:10px;">&times;</button>
+        const div = document.createElement('div');
+        div.style = "display: flex; justify-content: space-between; margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 5px;";
+        div.innerHTML = `
+            <span>${article.nom}</span>
+            <span>${article.prix}€ <button onclick="supprimerDuPanier(${index})" style="color:red; background:none; border:none; cursor:pointer; font-weight:bold;">&times;</button></span>
         `;
-        liste.appendChild(divArticle);
+        liste.appendChild(div);
     });
 
-    // Mise à jour du total
-    if (totalPrixEl) totalPrixEl.innerText = total;
-}
+    totalPrixEl.innerText = total;
 
-/**
- * Validation finale
- */
-function validerCommande() {
-    if (panier.length === 0) {
-        alert("Votre cave est vide !");
-    } else {
-        alert(`Commande validée pour ${total}€. Vos bouteilles arrivent !`);
+    // Affiche le panier seulement s'il y a des articles
+    if (panierVisuel) {
+        panierVisuel.style.display = panier.length > 0 ? 'block' : 'none';
     }
 }
