@@ -1,0 +1,75 @@
+#panier-flottant {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    width: 300px;
+    background: #fff;
+    border: 2px solid var(--bordeaux);
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    z-index: 2000;
+    display: none; 
+    border-radius: 8px;
+}
+
+.panier-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
+.btn-commander {
+    background: var(--gold);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    cursor: pointer;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: 0.3s;
+    margin-top: 15px;
+}
+
+.btn-commander:hover {
+    background: var(--bordeaux);
+}
+
+.produit-card {
+    border: 1px solid #eee;
+    padding: 30px;
+    border-radius: 12px;
+    background: #fff;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.produit-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.btn-ajout-panier {
+    background: var(--bordeaux);
+    color: white;
+    border: none;
+    padding: 12px 0;
+    width: 100%;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 20px;
+    border-radius: 4px;
+}
+
+.btn-ajout-panier:hover {
+    background: var(--gold);
+    color: var(--bordeaux);
+}
