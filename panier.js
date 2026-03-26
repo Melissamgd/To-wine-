@@ -1,12 +1,9 @@
-// Initialisation : on récupère le panier stocké ou on crée un vide
 let panier = JSON.parse(localStorage.getItem('panier_towine')) || [];
 
-// On rafraîchit l'affichage dès que la page est chargée
 document.addEventListener('DOMContentLoaded', updateDisplay);
 
 function ajouterAuPanier(nom, prix) {
     const articleExistant = panier.find(item => item.nom === nom);
-
     if (articleExistant) {
         articleExistant.quantite += 1;
     } else {
@@ -15,13 +12,15 @@ function ajouterAuPanier(nom, prix) {
     sauvegarderEtActualiser();
 }
 
-function supprimerDuPanier(index) {
-    if (panier[index].quantite > 1) {
-        panier[index].quantite -= 1;
-    } else {
-        panier.splice(index, 1);
+function modifierQuantite(index, changement) {
+    if (panier[index]) {
+        panier[index].quantite += changement;
+
+        if (panier[index].quantite <= 0) {
+            panier.splice(index, 1);
+        }
+        sauvegarderEtActualiser();
     }
-    sauvegarderEtActualiser();
 }
 
 function sauvegarderEtActualiser() {
@@ -42,11 +41,7 @@ function updateDisplay() {
 
     panier.forEach((article, index) => {
         const prixLigneBase = article.prix * article.quantite;
-        let remiseLigne = 0;
-
-        if (article.quantite >= 6) {
-            remiseLigne = prixLigneBase * 0.05;
-        }
+        let remiseLigne = (article.quantite >= 6) ? (prixLigneBase * 0.05) : 0;
 
         const prixLigneFinal = prixLigneBase - remiseLigne;
         totalBrut += prixLigneBase;
@@ -56,20 +51,27 @@ function updateDisplay() {
         div.style = "margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 8px;";
         
         const badgePromo = article.quantite >= 6 
-            ? `<span style="color: green; font-size: 0.75rem; font-weight: bold;">-5% (Caisse de 6)</span>` 
+            ? `<br><span style="color: green; font-size: 0.7rem; font-weight: bold;">PROMO -5% APPLIQUÉE</span>` 
             : "";
 
         div.innerHTML = `
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div style="flex: 1;">
-                    <span style="font-weight: bold;">${article.quantite}x</span> ${article.nom} ${badgePromo}
+                    <span style="font-weight: bold; color: #4a0404;">${article.nom}</span>
                     <div style="font-size: 0.8rem; color: #666;">${article.prix}€ l'unité</div>
+                    ${badgePromo}
                 </div>
-                <div style="text-align: right; margin-left: 10px;">
+
+                <div style="display: flex; align-items: center; gap: 8px; margin: 0 10px;">
+                    <button onclick="modifierQuantite(${index}, -1)" style="width:22px; height:22px; border-radius:50%; border:1px solid #4a0404; background:white; color:#4a0404; cursor:pointer;">-</button>
+                    <span style="font-weight: bold; min-width: 15px; text-align: center;">${article.quantite}</span>
+                    <button onclick="modifierQuantite(${index}, 1)" style="width:22px; height:22px; border-radius:50%; border:none; background:#4a0404; color:white; cursor:pointer;">+</button>
+                </div>
+
+                <div style="text-align: right; min-width: 70px;">
                     <div style="${article.quantite >= 6 ? 'text-decoration: line-through; color: #999; font-size: 0.8rem;' : 'font-weight: bold;'}">${prixLigneBase}€</div>
                     ${article.quantite >= 6 ? `<div style="font-weight: bold; color: green;">${prixLigneFinal.toFixed(2)}€</div>` : ""}
                 </div>
-                <button onclick="supprimerDuPanier(${index})" style="color:#4a0404; background:none; border:none; cursor:pointer; font-size: 1.2rem; margin-left: 10px;">&times;</button>
             </div>
         `;
         liste.appendChild(div);
@@ -82,7 +84,7 @@ function updateDisplay() {
 
     if (totalRemise > 0) {
         const divRemise = document.createElement('div');
-        divRemise.style = "color: green; font-size: 0.9rem; margin-top: 10px; text-align: right;";
+        divRemise.style = "color: green; font-size: 0.9rem; margin-top: 10px; text-align: right; font-weight: bold;";
         divRemise.innerHTML = `Économie : -${totalRemise.toFixed(2)}€`;
         liste.appendChild(divRemise);
     }
