@@ -3,36 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To wine | Catalogue</title>
+    <title>To Wine - Accueil</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
     <header>
-        <nav>
-            <div class="logo">L'Écrin Viticole</div>
-            <ul>
-                <li><a href="index.html" class="active">Catalogue</a></li>
-                <li><a href="articles.html">Connaissances</a></li>
+        <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000;">
+            <div class="logo" style="color: #4a0404; font-family: 'Cinzel', serif; font-size: 1.5rem; font-weight: bold; letter-spacing: 2px;">TO WINE</div>
+            <ul style="display: flex; list-style: none; gap: 25px; margin: 0; padding: 0;">
+                <li><a href="index.html" style="text-decoration: none; color: #4a0404; font-weight: bold; border-bottom: 2px solid #c5a059; padding-bottom: 5px;">Accueil</a></li>
+                <li><a href="fiche.html" style="text-decoration: none; color: #666;">Catalogue</a></li>
+                <li><a href="articles.html" style="text-decoration: none; color: #666;">Connaissances</a></li>
+                <li><a href="ia-conseil.html" style="text-decoration: none; color: #666;">Sommelier IA</a></li>
             </ul>
         </nav>
     </header>
 
+
+
     <main>
-        <section class="hero">
-            <h1>Nos Cuvées d'Exception</h1>
-            <p>Explorez les terroirs du Bordelais, de la Bourgogne et d'ailleurs.</p>
-        </section>
-
-        <div class="filters">
-            <button onclick="filterWine('all')">Tous</button>
-            <button onclick="filterWine('Bourgogne')">Bourgogne</button>
-            <button onclick="filterWine('Bordelais')">Bordelais</button>
-        </div>
-
-        <div id="wine-grid" class="grid">
+        <section style="text-align: center; padding: 120px 20px; background: #fdfbfb;">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <span style="color: #c5a059; text-transform: uppercase; letter-spacing: 3px; font-weight: 600;">L'excellence du terroir</span>
+                <h1 style="font-family: 'Playfair Display', serif; font-size: 3.5rem; color: #4a0404; margin: 20px 0;">To Wine</h1>
+                <p style="color: #555; font-size: 1.2rem; margin-bottom: 40px;">Votre cave digitale privilégiée pour découvrir, apprendre et déguster les plus grands crus.</p>
+                <div style="display: flex; gap: 20px; justify-content: center;">
+                    <a href="fiche.html" style="background: #4a0404; color: white; padding: 15px 35px; text-decoration: none; border-radius: 5px; font-weight: 600;">Explorer le Catalogue</a>
+                </div>
             </div>
+        </section>
     </main>
 
-    <script src="script.js"></script>
+
+    <footer style="background: #4a0404; color: white; padding: 40px; text-align: center; margin-top: 50px;">
+        <p>&copy; 2026 To Wine - Expertise & Passion</p>
+    </footer>
+
 </body>
 </html>
+
+
+

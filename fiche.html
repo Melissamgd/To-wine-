@@ -3,95 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ma Cave - Les 12 Vins</title>
+    <title>Catalogue - To Wine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylefiche.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
     <style>
-        /* Un petit style rapide pour que ce soit joli immédiatement */
-        body { font-family: sans-serif; background: #fdfcfc; color: #333; text-align: center; }
-        .container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 20px; max-width: 1100px; margin: auto; }
-        .card { border: 1px solid #ddd; border-radius: 10px; padding: 15px; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: 0.3s; }
-        .card:hover { transform: scale(1.03); }
-        .type-rouge { border-top: 5px solid #800020; }
-        .type-blanc { border-top: 5px solid #f4e04d; }
-        .type-rose { border-top: 5px solid #ffc0cb; }
-        h1 { color: #800020; margin-top: 30px; }
-        .region { font-style: italic; color: #666; }
-        
-        /* La carte */
-        #map { 
-            height: 500px; 
-            width: 90%; 
-            max-width: 1100px; 
-            margin: 20px auto; 
-            border-radius: 15px; 
-            border: 3px solid #800020; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+        /* BASE & RESET */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #fdfcfc; 
+            color: #333;
         }
-        
-        .map-section {
-            margin-top: 60px;
-            padding-bottom: 40px;
+
+        /* LIMITATION LARGEUR POUR ORDINATEUR */
+        .container-desktop {
+            max-width: 1200px; /* Largeur idéale pour un catalogue sur ordi */
+            margin: 0 auto;    /* Centre tout le contenu */
+            padding: 0 20px;
+        }
+
+        /* NAVIGATION STYLE PREMIUM */
+        nav {
+            background: #fff;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            height: 80px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .logo {
+            color: #4a0404;
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px; /* Plus d'espace sur ordi */
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        .nav-links a.active {
+            color: #4a0404;
+            font-weight: bold;
+            border-bottom: 2px solid #c5a059;
+            padding-bottom: 5px;
+        }
+
+        /* SECTION TITRE */
+        h1 {
+            text-align: center;
+            font-family: 'Playfair Display', serif;
+            color: #4a0404;
+            font-size: 2.5rem;
+            margin: 60px 0;
+        }
+
+        /* LA CARTE (MAP) VERSION DESKTOP */
+        #map { 
+            height: 600px; /* Plus haut sur ordi */
+            width: 100%;
+            border-radius: 15px; /* Moins arrondi pour faire plus pro */
+            border: 1px solid #ddd;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            margin-bottom: 50px;
+        }
+
+        footer {
+            background: #4a0404;
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 100px;
         }
     </style>
 </head>
 <body>
 
-    <h1>🍷 Ma Sélection des 12 Vins</h1>
-    <p>Données chargées depuis vins.json</p>
+    <header>
+        <nav>
+            <div class="container-desktop nav-content">
+                <div class="logo">TO WINE</div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="fiche.html" class="active">Catalogue</a></li>
+                    <li><a href="articles.html">Connaissances</a></li>
+                    <li><a href="ia-conseil.html">Sommelier IA</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
 
-    <div id="vins-container" class="container">
-    </div>
+    <main class="container-desktop">
+        
+        <section class="catalogue-section">
+            <h1>Notre Sélection de Vins</h1>
+            
+            <div id="wine-grid" class="wine-grid">
+                </div>
+        </section>
 
-    <div class="map-section">
-        <h1 style="font-size: 1.8rem;">📍 Où acheter du vin à Paris ?</h1>
-        <div id="map"></div>
-    </div>
+        <section class="map-section">
+            <h1 style="font-size: 1.8rem;">Trouver un Caviste à Paris</h1>
+            <div id="map"></div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container-desktop">
+            <p style="letter-spacing: 2px;">&copy; 2026 TO WINE</p>
+            <p style="font-weight: 300; opacity: 0.7;">Expertise & Passion • Mentions Légales</p>
+        </div>
+    </footer>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script>
-        // Ce script va lire ton fichier JSON
-        fetch('vins.json')
-            .then(response => response.json())
-            .then(data => {
-                const container = document.getElementById('vins-container');
-                data.forEach(vin => {
-                    const card = document.createElement('div');
-                    // On adapte la couleur selon le type (Rouge, Blanc...)
-                    const typeClass = "type-" + vin.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                    
-                    card.className = `card ${typeClass}`;
-                    card.innerHTML = `
-                        <h3>${vin.nom}</h3>
-                        <p class="region">📍 ${vin.region} (${vin.annee})</p>
-                        <p><strong>Type:</strong> ${vin.type}</p>
-                        <p>${vin.description}</p>
-                    `;
-                    container.appendChild(card);
-                });
-            })
-            .catch(error => console.error("Erreur de chargement :", error));
-        
-        // Initialiser la map
-        const map = L.map('map').setView([48.8566, 2.3522], 12);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-            maxZoom: 19
-        }).addTo(map);
-        
-        // Ajouter des marqueurs de cavistes (exemples)
-        const cavistes = [
-            { nom: "Caviste du Marais", lat: 48.8598, lng: 2.3619 },
-            { nom: "La Maison du Vin", lat: 48.8534, lng: 2.3488 },
-            { nom: "Vins et Terroirs", lat: 48.8723, lng: 2.2921 }
-        ];
-        
-        cavistes.forEach(caviste => {
-            L.marker([caviste.lat, caviste.lng])
-                .bindPopup(caviste.nom)
-                .addTo(map);
-        });
-    </script>
+    <script src="script.js"></script>
 
 </body>
 </html>
-
