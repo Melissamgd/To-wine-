@@ -38,7 +38,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </p>
     `;
 
-    // --- LOGIQUE DE MISE À JOUR DU PRIX EN DIRECT ---
     const selectFormat = article.querySelector(`#format-${vin.id}`);
     const prixDisplay = article.querySelector(`#prix-display-${vin.id}`);
 
@@ -49,7 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
         prixDisplay.innerText = `${nouveauPrix}€`;
     });
 
-    // --- BOUTON AJOUTER ---
     const bouton = document.createElement('button');
     bouton.className = "btn-ajout-panier";
     bouton.innerText = "Ajouter au panier";
