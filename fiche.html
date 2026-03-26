@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ma Cave - Les 12 Vins</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         /* Un petit style rapide pour que ce soit joli immédiatement */
         body { font-family: sans-serif; background: #fdfcfc; color: #333; text-align: center; }
@@ -15,6 +16,22 @@
         .type-rose { border-top: 5px solid #ffc0cb; }
         h1 { color: #800020; margin-top: 30px; }
         .region { font-style: italic; color: #666; }
+        
+        /* La carte */
+        #map { 
+            height: 500px; 
+            width: 90%; 
+            max-width: 1100px; 
+            margin: 20px auto; 
+            border-radius: 15px; 
+            border: 3px solid #800020; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+        }
+        
+        .map-section {
+            margin-top: 60px;
+            padding-bottom: 40px;
+        }
     </style>
 </head>
 <body>
@@ -23,8 +40,14 @@
     <p>Données chargées depuis vins.json</p>
 
     <div id="vins-container" class="container">
-        </div>
+    </div>
 
+    <div class="map-section">
+        <h1 style="font-size: 1.8rem;">📍 Où acheter du vin à Paris ?</h1>
+        <div id="map"></div>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // Ce script va lire ton fichier JSON
         fetch('vins.json')
@@ -37,13 +60,6 @@
                     const typeClass = "type-" + vin.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                     
                     card.className = `card ${typeClass}`;
-                    card.style.cursor = "pointer";
-                    
-                    // Ajouter onclick pour rediriger vers la page de détails
-                    card.onclick = () => {
-                        window.location.href = `details.html?id=${vin.id}`;
-                    };
-                    
                     card.innerHTML = `
                         <h3>${vin.nom}</h3>
                         <p class="region">📍 ${vin.region} (${vin.annee})</p>
@@ -54,6 +70,26 @@
                 });
             })
             .catch(error => console.error("Erreur de chargement :", error));
+        
+        // Initialiser la map
+        const map = L.map('map').setView([48.8566, 2.3522], 12);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+        
+        // Ajouter des marqueurs de cavistes (exemples)
+        const cavistes = [
+            { nom: "Caviste du Marais", lat: 48.8598, lng: 2.3619 },
+            { nom: "La Maison du Vin", lat: 48.8534, lng: 2.3488 },
+            { nom: "Vins et Terroirs", lat: 48.8723, lng: 2.2921 }
+        ];
+        
+        cavistes.forEach(caviste => {
+            L.marker([caviste.lat, caviste.lng])
+                .bindPopup(caviste.nom)
+                .addTo(map);
+        });
     </script>
 
 </body>
