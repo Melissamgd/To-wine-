@@ -3,164 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fiche du Vin - Détails</title>
+    <title>Détails du Vin</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #fdfcfc; padding: 20px; color: #333; line-height: 1.6; }
-        
-        .fiche-container { 
-            max-width: 700px; 
-            margin: 50px auto; 
-            background: rgb(238, 236, 236); 
-            padding: 40px; 
-            border-radius: 20px; 
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
-            text-align: left;
-        }
-
-        /* Bordures de couleur selon le type */
-        .type-rouge { border-top: 15px solid #800020; }
-        .type-blanc { border-top: 15px solid #f4e04d; }
-        .type-rose { border-top: 15px solid #ffc0cb; }
-        .type-liquoreux { border-top: 15px solid #ffae42; }
-
-        h1 { color: #800020; margin-top: 0; font-size: 2.5em; border-bottom: 2px solid #f9f9f9; padding-bottom: 15px; }
-        
-        .info-grid { display: grid; grid-template-columns: 150px 1fr; gap: 15px; margin-top: 50px; }
-        .label { font-weight: bold; color: #888; text-transform: uppercase; font-size: 0.85em; }
-        .value { color: #333; font-size: 1.1em; }
-
-        .description-box { 
-            margin-top: 30px; 
-            padding: 25px; 
-            background: #f9f6f6; 
-            border-left: 5px solid #800020; 
-            border-radius: 8px;
-            font-style: italic;
-        }
-
-        .price-big { 
-            display: block; 
-            margin-top: 30px; 
-            font-size: 2em; 
-            color: #27ae60; 
-            font-weight: bold; 
-            text-align: right; 
-        }
-
-        .btn-retour { 
-            display: inline-block; 
-            margin-top: 40px; 
-            text-decoration: none; 
-            color: #800020; 
-            font-weight: bold; 
-            border: 2px solid #800020; 
-            padding: 10px 25px; 
-            border-radius: 50px;
-            transition: 0.3s;
-        }
-        .btn-retour:hover { background: #800020; color: white; }
+        body { font-family: sans-serif; background: #fdfcfc; color: #333; text-align: center; padding: 20px; }
+        .detail { max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 10px; padding: 20px; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #800020; }
+        .back { margin-top: 20px; }
+        .back a { color: #800020; text-decoration: none; }
     </style>
 </head>
 <body>
 
-    <div id="affichage-vin">
-        </div>
+    <div id="vin-detail" class="detail">
+        <p>Chargement...</p>
+    </div>
+
+    <div class="back">
+        <a href="index.html">← Retour à la cave</a>
+    </div>
 
     <script>
-        // 1. Récupérer l'ID dans l'adresse (ex: ?id=3)
+        // Récupérer l'id depuis l'URL
         const urlParams = new URLSearchParams(window.location.search);
-        const idRecherche = urlParams.get('id');
+        const id = parseInt(urlParams.get('id'));
 
-        // 2. Lire le fichier JSON
-        fetch('vins.json')
-            .then(response => response.json())
-            .then(vins => {
-                // 3. Trouver le vin correspondant à l'ID
-                const vin = vins.find(v => v.id == idRecherche);
-
-                const zoneAffichage = document.getElementById('affichage-vin');
-
-                if (vin) {
-                    // Nettoyage du type pour le CSS
-                    let typeCSS = vin.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-                    if (typeCSS.includes("liquoreux")) typeCSS = "liquoreux";
-
-                    // 4. Afficher la fiche unique
-                    zoneAffichage.innerHTML = `
-                        <div class="fiche-container type-${typeCSS}">
+        if (id) {
+            fetch('vins.json')
+                .then(response => response.json())
+                .then(data => {
+                    const vin = data.find(v => v.id === id);
+                    if (vin) {
+                        document.getElementById('vin-detail').innerHTML = `
                             <h1>${vin.nom}</h1>
-                            
-                            <div class="info-grid">
-                                <div class="label">🌍 Pays</div><div class="value">${vin.pays}</div>
-                                <div class="label">📍 Région</div><div class="value">${vin.region} (${vin.annee})</div>
-                                <div class="label">🍇 Cépage</div><div class="value">${vin.cepage}</div>
-                                <div class="label">🎨 Type</div><div class="value">${vin.type}</div>
-                                <div class="label">🍽️ Accords</div><div class="value">${vin.accords_mets}</div>
-                            </div>
-
-                            <div class="description-box">
-                                "${vin.description}"
-                            </div>
-
-                            <span class="price-big">${vin.prix_estime} €</span>
-
-                            <div style="text-align: center;">
-                                <a href="articles.html" class="btn-retour">← Retour à la cave</a>
-                            </div>
-                        </div>
-                    `;
-                } else {
-                    zoneAffichage.innerHTML = `
-                        <div class="fiche-container" style="text-align:center;">
-                            <h2>🍷 Vin introuvable</h2>
-                            <p>Désolé, nous ne trouvons pas cette bouteille.</p>
-                            <a href="articles.html" class="btn-retour">Retour au catalogue</a>
-                        </div>
-                    `;
-                }
-            })
-            .catch(error => {
-                console.error("Erreur:", error);
-                document.getElementById('affichage-vin').innerHTML = "Erreur de chargement.";
-            });
-    </script>
-</body>
-</html>
-
-
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carte des Cavistes - Paris</title>
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; background-color: #fdfcfc; }
-        h1 { color: #800020; margin-top: 20px; text-transform: uppercase; letter-spacing: 1px; }
-        
-        /* La carte prend une grande partie de l'écran */
-        #map { 
-            height: 500px; 
-            width: 90%; 
-            max-width: 1100px; 
-            margin: 20px 0; 
-            border-radius: 15px; 
-            border: 3px solid #800020; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); 
+                            <p><strong>Pays:</strong> ${vin.pays}</p>
+                            <p><strong>Région:</strong> ${vin.region}</p>
+                            <p><strong>Année:</strong> ${vin.annee}</p>
+                            <p><strong>Cépage:</strong> ${vin.cepage}</p>
+                            <p><strong>Type:</strong> ${vin.type}</p>
+                            <p><strong>Description:</strong> ${vin.description}</p>
+                            <p><strong>Accords mets:</strong> ${vin.accords_mets}</p>
+                            <p><strong>Prix estimé:</strong> ${vin.prix_estime}€</p>
+                        `;
+                    } else {
+                        document.getElementById('vin-detail').innerHTML = '<p>Vin non trouvé.</p>';
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('vin-detail').innerHTML = '<p>Erreur de chargement.</p>';
+                    console.error(error);
+                });
+        } else {
+            document.getElementById('vin-detail').innerHTML = '<p>ID manquant.</p>';
         }
-    </style>
-</head>
-<body>
-
-    <h1>📍 Où acheter du vin à Paris ?</h1>
-    
-    <div id="map"></div>
-
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="script.js"></script>
+    </script>
 
 </body>
 </html>
