@@ -11,6 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 // On crée la carte HTML pour chaque vin
                 const card = document.createElement('div');
                 card.className = `vin-card ${vin.type.toLowerCase().replace('é', 'e')}`;
+                card.style.cursor = "pointer";
+                
+                // Ajouter l'événement onclick pour rediriger vers la page de détails
+                card.onclick = () => {
+                    window.location.href = `details.html?id=${vin.id}`;
+                };
                 
                 card.innerHTML = `
                     <div class="badge">${vin.type}</div>

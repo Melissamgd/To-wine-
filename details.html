@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails du Vin</title>
+    <style>
+        body { font-family: sans-serif; background: #fdfcfc; color: #333; text-align: center; padding: 20px; }
+        .detail { max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 10px; padding: 20px; background: white; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { color: #800020; }
+        .back { margin-top: 20px; }
+        .back a { color: #800020; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <div id="vin-detail" class="detail">
+        <p>Chargement...</p>
+    </div>
+
+    <div class="back">
+        <a href="fiche.html">← Retour au catalogue</a>
+    </div>
+
+    <script>
+        // Récupérer l'id depuis l'URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = parseInt(urlParams.get('id'));
+
+        if (id) {
+            fetch('vins.json')
+                .then(response => response.json())
+                .then(data => {
+                    const vin = data.find(v => v.id === id);
+                    if (vin) {
+                        document.getElementById('vin-detail').innerHTML = `
+                            <h1>${vin.nom}</h1>
+                            <p><strong>Pays:</strong> ${vin.pays}</p>
+                            <p><strong>Région:</strong> ${vin.region}</p>
+                            <p><strong>Année:</strong> ${vin.annee}</p>
+                            <p><strong>Cépage:</strong> ${vin.cepage}</p>
+                            <p><strong>Type:</strong> ${vin.type}</p>
+                            <p><strong>Description:</strong> ${vin.description}</p>
+                            <p><strong>Accords mets:</strong> ${vin.accords_mets}</p>
+                            <p><strong>Prix estimé:</strong> ${vin.prix_estime}€</p>
+                        `;
+                    } else {
+                        document.getElementById('vin-detail').innerHTML = '<p>Vin non trouvé.</p>';
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('vin-detail').innerHTML = '<p>Erreur de chargement.</p>';
+                    console.error(error);
+                });
+        } else {
+            document.getElementById('vin-detail').innerHTML = '<p>ID manquant.</p>';
+        }
+    </script>
+
+</body>
+</html>

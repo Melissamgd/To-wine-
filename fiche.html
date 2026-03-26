@@ -37,6 +37,13 @@
                     const typeClass = "type-" + vin.type.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                     
                     card.className = `card ${typeClass}`;
+                    card.style.cursor = "pointer";
+                    
+                    // Ajouter onclick pour rediriger vers la page de détails
+                    card.onclick = () => {
+                        window.location.href = `details.html?id=${vin.id}`;
+                    };
+                    
                     card.innerHTML = `
                         <h3>${vin.nom}</h3>
                         <p class="region">📍 ${vin.region} (${vin.annee})</p>
