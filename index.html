@@ -5,7 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To Wine - Accueil</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;600&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { background-color: #ffffff; margin: 0; font-family: 'Playfair Display', serif; color: #333; }
+
+        /* Navigation stable */
+        nav ul li a {
+            font-family: 'Cinzel', serif !important;
+            text-transform: uppercase !important;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .hero {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    
+    /* L'image de fond */
+    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), 
+                      url('https://images.unsplash.com/photo-1563514227147-6d2ff665a6a0?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dmlnbm9ibGV8ZW58MHx8MHx8fDA%3D');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Petit effet de parallaxe sympa */
+}
+
+        .btn-explorer {
+            background: #4a0404;
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        .btn-explorer:hover {
+            background: #6b0606;
+        }
+    </style>
 </head>
 <body>
 
