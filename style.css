@@ -169,10 +169,10 @@ body {
 }
 
 /* On réutilise les styles restants de ton catalogue si besoin */
-.footer {
-    background: #fff;
-    padding: 50px 20px;
+footer {
+    background: #4a0404;
+    color: white;
+    padding: 60px 0;
     text-align: center;
-    border-top: 1px solid #eee;
-    margin-top: 50px;
+    margin-top: 100px;
 }
